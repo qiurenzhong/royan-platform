@@ -1,0 +1,113 @@
+#网关端口号
+server:
+  port: 21401
+
+#网关服务注册到nacos
+spring:
+  application:
+    name: royan-gateway
+  profiles:
+    active: dev #环境配置
+  main:
+    #允许覆盖相同的bean
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  cloud:
+    nacos:
+      discovery:
+        #注册中心地址
+        server-addr: nacos.royan.com:8848
+      config:
+        #配置中心地址
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        #配置文件格式
+        file-extension: yml
+        #共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+    #网关限流容灾组件
+    sentinel:
+      #取消控制台懒加载
+      enabled: true
+      #服务启动直接建立心跳连接
+      eager: true
+      transport:
+        #指定控制台服务地址
+        dashboard: localhost:8080
+        port: 8720
+      datasource: #Sentinel使用Nacos存储规则
+        flow: #限流规则，flow为key，随便定义
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: ${spring.application.name}-flow-rules
+            groupId: SENTINEL_GROUP
+            rule-type: flow
+            data-type: json
+        degrade: #降级规则
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: degrade
+
+    #网关路由转发
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
+      routes:
+        - id: royan-auth
+          uri: lb://royan-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+        - id: royan-admin
+          uri: lb://royan-admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix=1
+        - id: royan-crm
+          uri: lb://royan-crm
+          predicates:
+            - Path=/crm/**
+          filters:
+            - StripPrefix=1
+
+  #Redis配置
+  redis:
+    database: 0
+    port: 6379
+    host: 127.0.0.1
+    password:
+
+#sa-token配置
+sa-token:
+  #token名称，同时是cookie名称
+  token-name: token
+  # token有效期，单位s 默认30天, -1代表永不过期
+  timeout: 2592000
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+  activity-timeout: -1
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: true
+  #token风格 simple-uuid
+  token-style: simple-uuid
+  # 是否输出操作日志
+  is-log: true
+
+#日志配置
+logging:
+  level:
+    ROOT: warn
+    org.springframework: info
+    org.springframework.web.servlet.view: info
+    org.springframework.web.servlet.mvc: info
+    com.royan: debug
+  file:
+    path: /app/logs/${spring.application.name}

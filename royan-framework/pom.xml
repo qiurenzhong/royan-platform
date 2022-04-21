@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>royan-platform</artifactId>
+        <groupId>com.royan</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.royan.framework</groupId>
+    <artifactId>royan-framework</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>framework-api</module>
+        <module>framework-jdbc</module>
+        <module>framework-core</module>
+        <module>framework-redis</module>
+        <module>framework-log</module>
+        <module>framework-search</module>
+        <module>framework-knife4j</module>
+        <module>framework-sentinel</module>
+        <module>framework-auth</module>
+    </modules>
+
+</project>

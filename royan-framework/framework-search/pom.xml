@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>royan-framework</artifactId>
+        <groupId>com.royan.framework</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>framework-search</artifactId>
+    <packaging>pom</packaging>
+    <description>elasticsearch搜素引擎</description>
+
+    <properties>
+        <bboss.elasticsearch>6.2.9</bboss.elasticsearch>
+        <easy-es.version>0.9.8</easy-es.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.bbossgroups.plugins</groupId>
+            <artifactId>bboss-elasticsearch-rest-jdbc</artifactId>
+            <version>${bboss.elasticsearch}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bbossgroups.plugins</groupId>
+            <artifactId>bboss-elasticsearch-spring-boot-starter</artifactId>
+            <version>${bboss.elasticsearch}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.xpc1024</groupId>
+            <artifactId>easy-es-boot-starter</artifactId>
+            <version>${easy-es.version}</version>
+        </dependency>
+
+    </dependencies>
+
+
+</project>

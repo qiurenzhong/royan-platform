@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.royan.framework.knife4j.config.Knife4jConfiguration

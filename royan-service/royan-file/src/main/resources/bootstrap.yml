@@ -1,0 +1,69 @@
+server:
+  port: 21829
+
+spring:
+  http:
+    multipart:
+      enabled: false
+      #设置单个文件上传大小
+      max-file-size: 10MB
+      #设置总上传的数据大小
+      max-request-size: 50MB
+  application:
+    name: royan-file
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      # 注册中心
+      discovery:
+        server-addr: nacos.royan.com:8848
+      # 配置中心
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        group: DEFAULT_GROUP
+
+#开启和暴露所有端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+#日志配置
+logging:
+  level:
+    ROOT: warn
+    org.springframework: info
+    org.springframework.web.servlet.view: info
+    org.springframework.web.servlet.mvc: info
+    io.undertow.request: info
+    org.frameworkset.elasticsearch: info
+    com.royan: debug
+    com.github.pagehelper: TRACE
+    com.zaxxer.hikari: TRACE
+  file:
+    path: /app/logs/${spring.application.name}
+
+#knife4j配置
+royan:
+  knife4j:
+    enabled: true
+    title: "文件中心"
+    description: "文件上传下载接口"
+    base-package: com.royan.file.provider.controller
+    password-token-url: http://localhost:21402/oauth2/token
+
+#minio文件共享服务
+minio:
+  endpoint: http://192.168.93.100/
+  port: 9000
+  accessKey: minio
+  secretKey: minio123
+  bucketName: royan-minio-bucket
+  secure: false
+  configDir: "/home/file"
