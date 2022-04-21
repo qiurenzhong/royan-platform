@@ -1,6 +1,6 @@
 package com.royan.message.provider.utils;
 
-import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.core.MessageDeliveryMode;
@@ -12,11 +12,9 @@ public class MessageHelper {
         if (null == obj) {
             return null;
         }
-
-        Message message = MessageBuilder.withBody(JSONUtil.toJsonStr(obj).getBytes()).build();
+        Message message = MessageBuilder.withBody(JSON.toJSONString(obj).getBytes()).build();
         message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);// 消息持久化
         message.getMessageProperties().setContentType(MessageProperties.CONTENT_TYPE_JSON);
-
         return message;
     }
 
@@ -24,10 +22,7 @@ public class MessageHelper {
         if (null == message || null == clazz) {
             return null;
         }
-
         String str = new String(message.getBody());
-        T obj = JSONUtil.toBean(str, clazz);
-
-        return obj;
+        return JSON.parseObject(str, clazz);
     }
 }

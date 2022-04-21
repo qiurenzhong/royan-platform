@@ -1,4 +1,4 @@
-package com.royan.framework.api.web.filter;
+package com.royan.framework.core.web.filter;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
@@ -6,7 +6,6 @@ import java.io.IOException;
 
 /**
  * @author Qiurz
- * @date 2020/4/15
  */
 public class TraceServletOutputStream extends ServletOutputStream {
 
@@ -22,6 +21,7 @@ public class TraceServletOutputStream extends ServletOutputStream {
         this.outputStream.write(b);
     }
 
+    @Override
     public void write(byte[] b, int off, int len) throws IOException {
         super.write(b, off, len);
         if (b.length > 0) {
@@ -30,6 +30,7 @@ public class TraceServletOutputStream extends ServletOutputStream {
 
     }
 
+    @Override
     public void write(byte[] b) throws IOException {
         super.write(b);
         if (b.length > 0) {

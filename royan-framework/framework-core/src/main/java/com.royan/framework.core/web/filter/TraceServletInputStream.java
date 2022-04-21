@@ -1,12 +1,12 @@
-package com.royan.framework.api.web.filter;
+package com.royan.framework.core.web.filter;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * @author Qiurz
- * @date 2020/4/15
  */
 public class TraceServletInputStream extends ServletInputStream {
 
@@ -25,6 +25,7 @@ public class TraceServletInputStream extends ServletInputStream {
         return data;
     }
 
+    @Override
     public int read(byte[] b) throws IOException {
         int data = this.servletInputStream.read(b);
         if (data > 0) {
@@ -34,6 +35,7 @@ public class TraceServletInputStream extends ServletInputStream {
         return data;
     }
 
+    @Override
     public int read(byte[] b, int off, int len) throws IOException {
         int data = this.servletInputStream.read(b, off, len);
         if (data > 0) {
@@ -43,6 +45,7 @@ public class TraceServletInputStream extends ServletInputStream {
         return data;
     }
 
+    @Override
     public int readLine(byte[] b, int off, int len) throws IOException {
         int data = this.servletInputStream.readLine(b, off, len);
         if (data > 0) {

@@ -1,4 +1,4 @@
-package com.royan.framework.api.web.filter;
+package com.royan.framework.core.web.filter;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Qiurz
- * @date 2020/4/15
  */
 public class FilterUtils {
     static final String METHOD_GET = "GET";
@@ -20,7 +19,6 @@ public class FilterUtils {
     }
 
     public static boolean shouldTracer(HttpServletRequest request, HttpServletResponse response) {
-        boolean tracerFlag = false;
         String responseContentType;
         String[] acceptContentTypes;
         String[] var5;
@@ -63,7 +61,7 @@ public class FilterUtils {
             }
         }
 
-        return tracerFlag;
+        return false;
     }
 }
 

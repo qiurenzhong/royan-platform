@@ -1,6 +1,7 @@
 package com.royan.framework.jdbc.model;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -15,7 +16,6 @@ import java.sql.Timestamp;
  *      3.mybatis-plus ID生成器注解@TableId，生成策略：ASSIGN_ID（支持自动转换为String类型），ASSIGN_UUID（默认不含中划线的UUID生成）
  *  </p>
  * @author Qiurz
- * @date 2020/4/5
  */
 @Setter
 @Getter

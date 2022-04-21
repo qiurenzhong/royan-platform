@@ -1,4 +1,4 @@
-package com.royan.framework.api.web.filter;
+package com.royan.framework.core.web.filter;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -7,7 +7,6 @@ import java.io.IOException;
 
 /**
  * @author Qiurz
- * @date 2020/4/15
  */
 public class TraceServletRequestWrapper extends HttpServletRequestWrapper {
 

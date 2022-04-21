@@ -1,10 +1,10 @@
-package com.royan.framework.api.web;
+package com.royan.framework.core.web;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.royan.framework.api.web.filter.WebTraceFilter;
+import com.royan.framework.core.web.filter.WebTraceFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cloud.sleuth.Tracer;
@@ -20,7 +20,6 @@ import java.util.TimeZone;
 
 /**
  * @author Qiurz
- * @date 2021/4/18
  */
 @Slf4j
 @Configuration
@@ -49,12 +48,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean(Tracer tracer) {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+    public FilterRegistrationBean<WebTraceFilter> filterRegistrationBean(Tracer tracer) {
+        FilterRegistrationBean<WebTraceFilter> registrationBean = new FilterRegistrationBean<>();
         // 自定义Trace过滤器
         registrationBean.setFilter(new WebTraceFilter(tracer));
 
-        registrationBean.addUrlPatterns(new String[]{"/*"});
+        registrationBean.addUrlPatterns("/*");
 
         // 优先级，越低越优先
         registrationBean.setOrder(-2147483642);

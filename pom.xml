@@ -23,7 +23,7 @@
         <fk.version>1.0-SNAPSHOT</fk.version>
         <alibaba.nacos.version>2.0.3</alibaba.nacos.version>
         <spring-boot-admin.version>2.4.3</spring-boot-admin.version>
-        <mybatis.plus.version>3.4.0</mybatis.plus.version>
+        <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <swagger.fox.version>3.0.0</swagger.fox.version>
         <swagger.core.version>1.6.2</swagger.core.version>
         <tobato.version>1.27.2</tobato.version>
@@ -150,6 +150,13 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+
+            <!--Mybatis-Plus整合多数据源-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
 

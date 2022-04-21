@@ -1,4 +1,4 @@
-package com.royan.framework.api.web.filter;
+package com.royan.framework.core.web.filter;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 
 /**
  * @author Qiurz
- * @date 2020/4/15
  */
 public class TraceServletResponseWrapper extends HttpServletResponseWrapper {
 
@@ -28,7 +27,7 @@ public class TraceServletResponseWrapper extends HttpServletResponseWrapper {
 
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
-        if (!FilterUtils.shouldTracer((HttpServletRequest)null, this.response)) {
+        if (!FilterUtils.shouldTracer(null, this.response)) {
             return super.getOutputStream();
         } else {
             if (null == this.traceServletOutputStream) {
