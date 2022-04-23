@@ -29,10 +29,10 @@ public class ApplicationException extends RuntimeException {
 
     public ApplicationException(String code, String message, Throwable cause) {
         super(message, cause);
-        this.appCode = new ApplicationException.DefaultAppCode(code, message);
+        this.appCode = new DefaultAppCode(code, message);
     }
 
-    class DefaultAppCode implements AppCode {
+    static class DefaultAppCode implements AppCode {
         private String code;
         private String message;
 

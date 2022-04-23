@@ -5,13 +5,13 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.provider.mapper.SysUserMapper;
 import com.royan.admin.provider.service.SysUserService;
+import com.royan.framework.api.model.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -49,12 +49,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public Page<SysUser> search(SysUserBO sysUserBO) {
+    public Pagination<SysUser> search(SysUserBO sysUserBO) {
 
         log.info("----------------分页查询-----------------");
-        Page<SysUser> page = new Page<>(1, 200);
+        Pagination<SysUser> page = new Pagination<>(1, 200);
         //page.setOrders(sysUserBO.getOrderByClauses());
-        Page<SysUser> userIPage = getBaseMapper().selectPage(
+        Pagination<SysUser> userIPage = getBaseMapper().selectPage(
                 page, Wrappers.<SysUser>lambdaQuery().like(SysUser::getUsername, "Van")
         );
         log.error("总条数 -------------> {}", userIPage.getTotal());

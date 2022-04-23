@@ -1,6 +1,6 @@
 package com.royan.admin.api.model;
 
-import com.royan.framework.jdbc.model.GenericModel;
+import com.royan.framework.api.model.GenericModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -27,6 +27,7 @@ public class SysUser extends GenericModel<Long> {
      */
     private Integer gender;
     /**
+     *
      * 密码
      */
     private String password;

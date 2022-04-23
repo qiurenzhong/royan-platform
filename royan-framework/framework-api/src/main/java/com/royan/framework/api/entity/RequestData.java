@@ -4,10 +4,9 @@ import lombok.Data;
 
 /**
  * @author Qiurz
- * @date 2020/4/6
  */
 @Data
-public class ReqeustData<T> {
+public class RequestData<T> {
 
     private String appId;
     private String device;

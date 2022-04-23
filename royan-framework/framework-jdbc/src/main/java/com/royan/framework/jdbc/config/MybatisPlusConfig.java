@@ -1,7 +1,6 @@
 package com.royan.framework.jdbc.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
@@ -40,10 +39,10 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
-    @Bean
+   /* @Bean
     public ConfigurationCustomizer configurationCustomizer() {
         return configuration -> configuration.setUseDeprecatedExecutor(false);
-    }
+    }*/
 
 
     /**
@@ -56,16 +55,15 @@ public class MybatisPlusConfig {
         return globalConfig;
     }
 
-    /**
-     * 自定义ID生成器
-     * @return
-     */
+//    /**
+//     * 自定义ID生成器
+//     * @return
+//     */
 //    @Bean
 //    public MybatisPlusPropertiesCustomizer plusPropertiesCustomizer() {
 //        return plusProperties -> plusProperties.getGlobalConfig()
 //                .setIdentifierGenerator(new CustomIdGenerator());
 //    }
-
 
 
 }

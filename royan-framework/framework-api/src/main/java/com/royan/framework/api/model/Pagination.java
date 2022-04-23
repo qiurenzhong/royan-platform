@@ -1,4 +1,4 @@
-package com.royan.framework.jdbc.model;
+package com.royan.framework.api.model;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -12,4 +12,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 public class Pagination<T> extends Page<T> {
 
 
+    public Pagination(int page, int pageSize) {
+        super(page, pageSize);
+    }
 }

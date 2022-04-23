@@ -68,7 +68,7 @@ public class ResponseData<T> implements Serializable {
 
 
     public static <T> ResponseData<T> success(T data,boolean isSuccess) {
-        ResponseData<T> result = new ResponseData<T>();
+        ResponseData<T> result = new ResponseData<>();
         result.setCode(ResponseCode.SUCCESS.getCode());
         result.setMsg(ResponseCode.SUCCESS.getMessage());
         result.setData(data);
@@ -93,7 +93,7 @@ public class ResponseData<T> implements Serializable {
     }
 
     private static <T> ResponseData<T> result(String code, String msg, T data) {
-        ResponseData<T> result = new ResponseData<T>();
+        ResponseData<T> result = new ResponseData<>();
         result.setCode(code);
         result.setData(data);
         result.setMsg(msg);

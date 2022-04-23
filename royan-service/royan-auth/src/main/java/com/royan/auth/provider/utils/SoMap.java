@@ -1,18 +1,16 @@
 package com.royan.auth.provider.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Map< String, Object> 是最常用的一种Map类型，但是它写着麻烦
@@ -660,14 +658,14 @@ public class SoMap extends LinkedHashMap<String, Object> {
         // 声明hash-Map，方便查找数据
         SoMap hash = new SoMap();
         // 将数组转为Object的形式，key为数组中的id
-        for (int i = 0; i < list.size(); i++) {
-            SoMap json = (SoMap) list.get(i);
+        for (SoMap soMap : list) {
+            SoMap json = soMap;
             hash.put(json.getString(idKey), json);
         }
         // 遍历结果集
-        for (int j = 0; j < list.size(); j++) {
+        for (SoMap soMap : list) {
             // 单条记录
-            SoMap aVal = (SoMap) list.get(j);
+            SoMap aVal = soMap;
             // 在hash中取出key为单条记录中pid的值
             SoMap hashVp = (SoMap) hash.get(aVal.get(parentIdKey, "").toString());
             // 如果记录的pid存在，则说明它有父节点，将她添加到孩子节点的集合中

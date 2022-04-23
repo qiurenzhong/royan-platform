@@ -1,7 +1,6 @@
 package com.royan.framework.jdbc.datascope;
 
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
-import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -19,28 +18,28 @@ import java.util.Objects;
 import java.util.Properties;
 
 /**
- *   Mybatis 拦截器 主要用于数据权限拦截
+ * Mybatis 拦截器 主要用于数据权限拦截
+ *
  * @author Qiurz
  * @date 2021/4/24
  */
 @Slf4j
 @Component
-@Intercepts({@Signature(type = StatementHandler.class, method = "prepare",args = {Connection.class,Integer.class})})
-public class DataScopeInterceptor extends AbstractSqlParserHandler implements Interceptor {
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
+public class DataScopeInterceptor implements Interceptor {
 
     private DataSource dataSource;
 
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        if (log.isInfoEnabled()){
+        if (log.isInfoEnabled()) {
             log.debug("进入 DataScopeInterceptor 数据权限拦截...");
         }
 
         StatementHandler statementHandler = PluginUtils.realTarget(invocation.getTarget());
 
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
-        this.sqlParser(metaObject);
 
         // 判断是不是select操作，如不是则直接过
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");

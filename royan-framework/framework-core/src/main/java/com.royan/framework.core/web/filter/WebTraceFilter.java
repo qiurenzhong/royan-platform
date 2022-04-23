@@ -87,7 +87,7 @@ public class WebTraceFilter extends GenericFilterBean {
                 builder.append("\"costTime\":" + "\"" +(endTime - startTime) + "ms\"}");
 
                 if (log.isDebugEnabled()){
-                    log.debug("app params info: \n" + builder.toString());
+                    log.debug("app params info: \n" + builder);
                 }
             }catch (Exception ex) {
                 log.error("tracer request/response param error!", ex);

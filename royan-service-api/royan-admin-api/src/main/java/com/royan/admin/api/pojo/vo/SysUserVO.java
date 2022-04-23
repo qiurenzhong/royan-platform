@@ -2,6 +2,7 @@ package com.royan.admin.api.pojo.vo;
 
 import com.royan.admin.api.model.SysUser;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @date 2021/4/18
  */
 @Data
+@EqualsAndHashCode
 public class SysUserVO extends SysUser {
     /**
      * 客户端

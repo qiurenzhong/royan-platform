@@ -52,7 +52,6 @@
         <dependency>
             <groupId>com.royan.framework</groupId>
             <artifactId>framework-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -13,7 +13,7 @@ import com.royan.framework.core.domain.Context;
  */
 public class ContextUtils {
 
-    private static ThreadLocal<Context> contextThreadLocal = new InheritableThreadLocal<>();
+    private static final ThreadLocal<Context> contextThreadLocal = new InheritableThreadLocal<>();
 
 
     public Context getContext() {

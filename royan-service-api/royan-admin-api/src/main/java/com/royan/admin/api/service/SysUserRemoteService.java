@@ -1,13 +1,13 @@
 package com.royan.admin.api.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.royan.admin.api.ServerInterface;
 import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.api.service.fallback.SysUserFeignFallback;
-import com.royan.framework.api.entity.ResponseData;
 import com.royan.admin.api.service.feign.FeignInterceptor;
+import com.royan.framework.api.entity.ResponseData;
+import com.royan.framework.api.model.Pagination;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +39,7 @@ public interface SysUserRemoteService {
     ResponseData<Integer> update(@RequestBody SysUserBO userBO);
 
     @RequestMapping(value = "/user/search", method = RequestMethod.POST)
-    ResponseData<Page<SysUser>> search(@RequestBody SysUserBO userBO);
+    ResponseData<Pagination<SysUser>> search(@RequestBody SysUserBO userBO);
 
     @RequestMapping(value = "/user/getUserByUsername", method = RequestMethod.POST)
     ResponseData<SysUserVO> getUserByUsername(@RequestBody String username);

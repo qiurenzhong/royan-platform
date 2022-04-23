@@ -1,12 +1,12 @@
 package com.royan.admin.api.service.fallback;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.api.service.SysUserRemoteService;
 import com.royan.framework.api.entity.ResponseCode;
 import com.royan.framework.api.entity.ResponseData;
+import com.royan.framework.api.model.Pagination;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -52,7 +52,7 @@ public class SysUserFeignFallback implements SysUserRemoteService {
     }
 
     @Override
-    public ResponseData<Page<SysUser>> search(SysUserBO userBO) {
+    public ResponseData<Pagination<SysUser>> search(SysUserBO userBO) {
         return null;
     }
 

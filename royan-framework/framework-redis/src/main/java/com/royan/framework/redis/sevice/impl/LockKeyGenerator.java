@@ -1,6 +1,5 @@
 package com.royan.framework.redis.sevice.impl;
 
-import cn.hutool.core.util.ReferenceUtil;
 import cn.hutool.core.util.StrUtil;
 import com.royan.framework.redis.annotation.CacheLock;
 import com.royan.framework.redis.annotation.CacheParams;
@@ -57,6 +56,6 @@ public class LockKeyGenerator implements CacheKeyGenerator {
                 }
             }
         }
-       return cacheLock.prefix() + sb.toString();
+       return cacheLock.prefix() + sb;
     }
 }

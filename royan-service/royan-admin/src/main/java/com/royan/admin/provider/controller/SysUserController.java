@@ -3,13 +3,13 @@ package com.royan.admin.provider.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.api.service.SysUserRemoteService;
 import com.royan.admin.provider.service.SysUserService;
 import com.royan.framework.api.entity.ResponseData;
+import com.royan.framework.api.model.Pagination;
 import com.royan.framework.redis.annotation.CacheLock;
 import com.royan.framework.redis.annotation.CacheParams;
 import io.swagger.annotations.ApiImplicitParam;
@@ -96,8 +96,8 @@ public class SysUserController implements SysUserRemoteService {
 
     @Override
     @ApiOperation(value = "分页查询用户列表", notes = "分页查询")
-    public ResponseData<Page<SysUser>> search(@RequestBody SysUserBO sysUserBO) {
-        ResponseData<Page<SysUser>> resp = new ResponseData<>();
+    public ResponseData<Pagination<SysUser>> search(@RequestBody SysUserBO sysUserBO) {
+        ResponseData<Pagination<SysUser>> resp = new ResponseData<>();
         resp.setData(sysUserService.search(sysUserBO)).ok();
         return resp;
     }

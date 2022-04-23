@@ -1,10 +1,10 @@
 package com.royan.admin.provider.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
-import com.royan.admin.api.model.SysUser;
+import com.royan.framework.api.model.Pagination;
 
 /**
  * 用户信息表(SysUser)表服务接口
@@ -29,5 +29,5 @@ public interface SysUserService extends IService<SysUser> {
      * @param sysUserBO
      * @return
      */
-    Page<SysUser> search(SysUserBO sysUserBO);
+    Pagination<SysUser> search(SysUserBO sysUserBO);
 }
