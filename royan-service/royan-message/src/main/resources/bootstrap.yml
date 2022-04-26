@@ -1,8 +1,6 @@
-#端口
 server:
   port: 20418
 
-#rabbitMQ配置
 spring:
   application:
     name: royan-message
@@ -10,29 +8,10 @@ spring:
     active: dev
   cloud:
     nacos:
-      discovery: #注册中心
-        server-addr: nacos.royan.com:8848
       config: #配置中心
-        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        server-addr: ${spring.cloud.nacos.server-addr:https://nacos.royan.com}:8848
         file-extension: yml
-  rabbitmq:
-    host: 192.168.0.128
-    port: 5672
-    username: root
-    password: root
-    #开启confirms回调 P -> Exchange
-    publisher-confirm-type: correlated
-    #开启returnedMessage回调 Exchange -> Queue
-    publisher-returns: true
-    # 设置手动确认(ack) Queue -> C
-    listener:
-      simple:
-        acknowledge-mode: manual
-        prefetch: 100
-  #mail配置
-  mail:
-    host: smtp.163.com
-    username: qiurz1002@163.com
-    password: DDPPQQXEZVCFZXAT #这里是邮箱的授权码
+        namespace: ${spring.profiles.active}
+
 
 
