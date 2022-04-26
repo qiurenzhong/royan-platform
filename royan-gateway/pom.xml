@@ -12,12 +12,101 @@
 
     <groupId>com.royan.gateway</groupId>
     <artifactId>royan-gateway</artifactId>
-    <packaging>pom</packaging>
     <description>Gateway网关资源服务</description>
+    <packaging>jar</packaging>
 
-    <modules>
-        <module>royan-gateway-api</module>
-        <module>royan-gateway-provider</module>
-    </modules>
+    <dependencies>
+        <!--Spring Cloud & Alibaba-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <!-- 注册中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <!-- 配置中心 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- 网关与Sentinel集合流量控制、熔断降级 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+        </dependency>
+
+        <!-- 配置读取 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <!--公共依赖-->
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-log</artifactId>
+            <version>${fk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-redis</artifactId>
+            <version>${fk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-core</artifactId>
+            <version>${fk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-sentinel</artifactId>
+            <version>${fk.version}</version>
+        </dependency>
+
+        <!-- Sa-Token 权限认证（Reactor响应式集成）, 在线文档：http://sa-token.dev33.cn/ -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-reactor-spring-boot-starter</artifactId>
+            <version>1.24.0</version>
+        </dependency>
+        <!-- Sa-Token 整合 Redis (使用jackson序列化方式) -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-dao-redis-jackson</artifactId>
+            <version>1.24.0</version>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

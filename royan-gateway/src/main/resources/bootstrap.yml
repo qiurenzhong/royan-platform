@@ -1,0 +1,26 @@
+#网关端口号
+server:
+  port: 21401
+
+#网关服务注册到nacos
+spring:
+  application:
+    name: royan-gateway
+  profiles:
+    active: dev
+  main:
+    #允许覆盖相同的bean
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  cloud:
+    nacos:
+      config:
+        #配置中心地址
+        server-addr: ${spring.cloud.nacos.server-addr:https://nacos.royan.com}:8848
+        #配置文件格式
+        file-extension: yml
+        #命名空间
+        namespace: ${spring.profiles.active}
+        #共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
