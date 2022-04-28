@@ -1,7 +1,5 @@
 package com.royan.framework.redis.annotation;
 
-import io.netty.util.Timeout;
-
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
@@ -12,10 +10,11 @@ import java.util.concurrent.TimeUnit;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface CacheLock {
+public @interface RedisLock {
 
     /**
      * 锁的前缀
+     *
      * @return
      */
     String prefix() default "";

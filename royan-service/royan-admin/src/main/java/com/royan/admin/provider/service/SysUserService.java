@@ -30,4 +30,6 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
     Pagination<SysUser> search(SysUserBO sysUserBO);
+
+    Integer saveSysUser(SysUserBO sysUserBO);
 }

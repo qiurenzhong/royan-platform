@@ -1,7 +1,6 @@
 package com.royan.framework.redis.annotation;
 
 import java.lang.annotation.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * redis分布式锁的参数
@@ -10,10 +9,11 @@ import java.util.concurrent.TimeUnit;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface CacheParams {
+public @interface ReqParams {
 
     /**
      * 字段名称
+     *
      * @return
      */
     String name() default "";

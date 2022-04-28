@@ -33,6 +33,7 @@
         <druid.version>1.2.8</druid.version>
         <dynamic-ds.version>3.4.1</dynamic-ds.version>
         <commons.io.version>2.11.0</commons.io.version>
+        <redisson.version>3.9.1</redisson.version>
         <commons.fileupload.version>1.4</commons.fileupload.version>
         <fastjson.version>1.2.76</fastjson.version>
         <minio.version>8.2.2</minio.version>
@@ -198,6 +199,13 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons.io.version}</version>
+            </dependency>
+
+            <!-- redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
 
             <!-- excel工具 -->

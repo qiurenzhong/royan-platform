@@ -12,10 +12,13 @@ import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.provider.mapper.SysUserMapper;
 import com.royan.admin.provider.service.SysUserService;
 import com.royan.framework.api.model.Pagination;
+import com.royan.framework.redis.annotation.RedisLock;
+import com.royan.framework.redis.annotation.ReqParams;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 用户信息表(SysUser)表服务实现类
@@ -63,4 +66,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return userIPage;
     }
 
+    @Override
+    @RedisLock(prefix = "add:user", expire = 10, timeUnit = TimeUnit.SECONDS)
+    public Integer saveSysUser(@ReqParams(name = "userBO") SysUserBO sysUserBO) {
+        return null;
+    }
 }
