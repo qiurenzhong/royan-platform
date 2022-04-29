@@ -1,6 +1,5 @@
 package com.royan.admin.api.service.fallback;
 
-import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.api.service.SysUserRemoteService;
@@ -52,7 +51,7 @@ public class SysUserFeignFallback implements SysUserRemoteService {
     }
 
     @Override
-    public ResponseData<Pagination<SysUser>> search(SysUserBO userBO) {
+    public ResponseData<Pagination<SysUserVO>> search(SysUserBO userBO) {
         return null;
     }
 

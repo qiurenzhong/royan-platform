@@ -1,9 +1,9 @@
 package com.royan.admin.provider.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
+import com.royan.admin.provider.model.SysUser;
 import com.royan.framework.api.model.Pagination;
 
 /**
@@ -29,7 +29,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param sysUserBO
      * @return
      */
-    Pagination<SysUser> search(SysUserBO sysUserBO);
+    Pagination<SysUserVO> search(SysUserBO sysUserBO);
 
     Integer saveSysUser(SysUserBO sysUserBO);
 }

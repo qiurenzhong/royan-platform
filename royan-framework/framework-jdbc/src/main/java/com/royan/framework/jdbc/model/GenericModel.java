@@ -1,4 +1,4 @@
-package com.royan.framework.api.model;
+package com.royan.framework.jdbc.model;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;

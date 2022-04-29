@@ -1,6 +1,6 @@
-package com.royan.admin.api.model;
+package com.royan.admin.provider.model;
 
-import com.royan.framework.api.model.GenericModel;
+import com.royan.framework.jdbc.model.GenericModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

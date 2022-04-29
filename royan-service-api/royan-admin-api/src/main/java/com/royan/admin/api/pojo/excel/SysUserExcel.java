@@ -1,4 +1,4 @@
-package com.royan.admin.api.pojo.vo.excel;
+package com.royan.admin.api.pojo.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.EqualsAndHashCode;

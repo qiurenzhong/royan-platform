@@ -1,6 +1,5 @@
 package com.royan.admin.api.pojo.vo;
 
-import com.royan.admin.api.model.SysUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +11,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode
-public class SysUserVO extends SysUser {
+public class SysUserVO {
     /**
      * 客户端
      */

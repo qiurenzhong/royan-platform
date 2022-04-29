@@ -1,7 +1,7 @@
 package com.royan.admin.provider.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.royan.admin.api.model.SysUser;
+import com.royan.admin.provider.model.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

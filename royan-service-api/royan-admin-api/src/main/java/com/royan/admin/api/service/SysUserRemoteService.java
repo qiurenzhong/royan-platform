@@ -1,7 +1,6 @@
 package com.royan.admin.api.service;
 
 import com.royan.admin.api.ServerInterface;
-import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.api.service.fallback.SysUserFeignFallback;
@@ -39,7 +38,7 @@ public interface SysUserRemoteService {
     ResponseData<Integer> update(@RequestBody SysUserBO userBO);
 
     @RequestMapping(value = "/user/search", method = RequestMethod.POST)
-    ResponseData<Pagination<SysUser>> search(@RequestBody SysUserBO userBO);
+    ResponseData<Pagination<SysUserVO>> search(@RequestBody SysUserBO userBO);
 
     @RequestMapping(value = "/user/getUserByUsername", method = RequestMethod.POST)
     ResponseData<SysUserVO> getUserByUsername(@RequestBody String username);

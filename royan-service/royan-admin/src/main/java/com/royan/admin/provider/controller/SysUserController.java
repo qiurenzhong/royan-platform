@@ -3,10 +3,10 @@ package com.royan.admin.provider.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.royan.admin.api.model.SysUser;
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.api.service.SysUserRemoteService;
+import com.royan.admin.provider.model.SysUser;
 import com.royan.admin.provider.service.SysUserService;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
@@ -81,8 +81,8 @@ public class SysUserController implements SysUserRemoteService {
     }
 
     @Override
-    public ResponseData<Pagination<SysUser>> search(@RequestBody SysUserBO sysUserBO) {
-        ResponseData<Pagination<SysUser>> resp = new ResponseData<>();
+    public ResponseData<Pagination<SysUserVO>> search(@RequestBody SysUserBO sysUserBO) {
+        ResponseData<Pagination<SysUserVO>> resp = new ResponseData<>();
         resp.setData(sysUserService.search(sysUserBO)).ok();
         return resp;
     }

@@ -19,6 +19,11 @@
         <!--Spring Cloud & Alibaba-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <!--Spring Cloud & Alibaba-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
         <dependency>
@@ -63,11 +68,6 @@
         <dependency>
             <groupId>com.royan.framework</groupId>
             <artifactId>framework-redis</artifactId>
-            <version>${fk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.royan.framework</groupId>
-            <artifactId>framework-core</artifactId>
             <version>${fk.version}</version>
         </dependency>
         <dependency>

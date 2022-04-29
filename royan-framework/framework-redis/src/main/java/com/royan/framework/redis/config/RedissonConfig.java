@@ -30,7 +30,7 @@ public class RedissonConfig {
     public RedissonClient createRedissonClient() {
         Config config = new Config();
         SingleServerConfig singleServerConfig = config.useSingleServer();
-        singleServerConfig.setAddress("redis://" + env.getProperty("spring.redis.host") + env.getProperty("spring.redis.port"));
+        singleServerConfig.setAddress("redis://" + env.getProperty("spring.redis.host") + ":" + env.getProperty("spring.redis.port"));
         singleServerConfig.setTimeout(Convert.toInt(env.getProperty("spring.redis.timeout")));
         return Redisson.create(config);
     }
