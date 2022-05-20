@@ -1,5 +1,6 @@
 package com.royan.gateway.provider.config;
 
+import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
@@ -24,6 +25,7 @@ public class SaTokenConfigure {
         saReactorFilter.addExclude("/favicon.ico");
         // 鉴权方法，每次访问进入
         saReactorFilter.setAuth(auth -> {
+            log.info("请求的url:{}", SaHolder.getRequest().getUrl());
             // 登录验证 -- 拦截所有路由，并排除/auth/user/doLogin 用于开放登录
             SaRouter.match("/**", "/auth/user/doLogin", () -> StpUtil.checkLogin());
             // 权限认证 -- 不同模块, 校验不同权限

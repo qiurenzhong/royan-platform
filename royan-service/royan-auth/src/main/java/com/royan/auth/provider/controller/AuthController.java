@@ -9,10 +9,7 @@ import com.royan.auth.api.pojo.LoginUser;
 import com.royan.auth.api.service.AuthRemoteService;
 import com.royan.framework.api.entity.ResponseData;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -63,19 +60,14 @@ public class AuthController implements AuthRemoteService {
 
     /**
      * 登录
-     *
-     * @param username
-     * @param password
-     * @return
      */
-    @RequestMapping("/user/doLogin")
-    public ResponseData<LoginUser> doLogin(String username, String password) {
+    @PostMapping("/user/doLogin")
+    public ResponseData<LoginUser> doLogin(@RequestBody LoginUser loginUser) {
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
-        if ("admin".equals(username) && "123456".equals(password)) {
+        if ("admin".equals(loginUser.getUsername()) && "123456".equals(loginUser.getPassword())) {
             StpUtil.login(10001);
-            LoginUser loginUser = new LoginUser();
-            loginUser.setUsername(username);
-            loginUser.setPassword(password);
+            loginUser.setUsername("admin");
+            loginUser.setPassword("123456");
             loginUser.setObj(StpUtil.getTokenInfo());
             return ResponseData.success(loginUser);
         }
@@ -85,7 +77,7 @@ public class AuthController implements AuthRemoteService {
     /**
      * 退出
      */
-    @RequestMapping("/user/logout")
+    @PostMapping("/user/logout")
     public ResponseData<String> logout() {
         StpUtil.logout();
         return ResponseData.success("退出登录成功！");
