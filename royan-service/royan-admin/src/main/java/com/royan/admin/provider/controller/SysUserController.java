@@ -1,6 +1,5 @@
 package com.royan.admin.provider.controller;
 
-import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.royan.admin.api.pojo.bo.SysUserBO;
@@ -59,7 +58,6 @@ public class SysUserController implements SysUserRemoteService {
     }
 
     @Override
-    @SaCheckPermission("user:add")
     public ResponseData<Integer> save(@RequestBody SysUserBO sysUserBO) {
         ResponseData<Integer> resp = new ResponseData<>();
         resp.setData(sysUserService.saveSysUser(sysUserBO)).ok();

@@ -17,4 +17,8 @@ import org.springframework.stereotype.Component;
 public class RedissonLockInterceptor {
 
 
+    // 1.切入点
+
+    // 2.
+
 }

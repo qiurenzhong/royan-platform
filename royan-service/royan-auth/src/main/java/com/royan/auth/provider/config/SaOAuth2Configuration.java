@@ -3,7 +3,6 @@ package com.royan.auth.provider.config;
 import cn.dev33.satoken.oauth2.config.SaOAuth2Config;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -16,9 +15,7 @@ public class SaOAuth2Configuration {
         cfg.
                 // 配置：未登录时返回的View
                         setNotLoginView(() -> {
-                    String msg = "当前会话在SSO-Server端尚未登录，请先访问"
-                            + "<a href='/oauth2/doLogin?name=sa&pwd=123456' target='_blank'> doLogin登录 </a>"
-                            + "进行登录之后，刷新页面开始授权";
+                    String msg = "当前会话在SSO-Server端尚未登录，请先访问<a href='/oauth2/doLogin?name=sa&pwd=123456' target='_blank'> doLogin登录 </a>进行登录之后，刷新页面开始授权";
                     return msg;
                 }).
                 // 配置：登录处理函数

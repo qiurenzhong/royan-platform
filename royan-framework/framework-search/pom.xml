@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>framework-search</artifactId>
-    <packaging>pom</packaging>
     <description>elasticsearch搜素引擎</description>
 
     <properties>

@@ -4,11 +4,10 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.oauth2.logic.SaOAuth2Handle;
 import cn.dev33.satoken.oauth2.logic.SaOAuth2Util;
+import cn.dev33.satoken.stp.StpUtil;
+import com.royan.auth.api.pojo.LoginUser;
 import com.royan.auth.api.service.AuthRemoteService;
 import com.royan.framework.api.entity.ResponseData;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,28 +18,29 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * 认证服务控制层
+ *
  * @author Qiurz
  * @date 2021/4/9
  */
 @Slf4j
-@Api(tags = "认证服务")
 @RestController
 public class AuthController implements AuthRemoteService {
 
     /**
      * 处理所有OAuth2相关请求
-     *
      */
-    @RequestMapping(value = "/oauth2/*",method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/oauth2/*", method = {RequestMethod.GET, RequestMethod.POST})
     public Object request() {
         log.info(">>>>>>>>>>进入请求url=[{}]", SaHolder.getRequest().getUrl());
         return SaOAuth2Handle.serverRequest();
     }
 
+    /**
+     * 获取登录用户信息
+     */
     @SaCheckLogin // 登录认证：只有登录之后才能进入该方法
     @Override
-    @ApiOperation(value = "获取登录用户信息", notes = "token令牌必须填")
-    @ApiParam(name = "token", value = "令牌", required = true)
     public ResponseData<Map<String, Object>> getUserinfo(@RequestParam("token") String token) {
         // 获取 Access-Token 对应的账号id
         Object loginId = SaOAuth2Util.getLoginIdByAccessToken(token);
@@ -59,5 +59,35 @@ public class AuthController implements AuthRemoteService {
         ResponseData<Map<String, Object>> resp = new ResponseData<>();
         resp.setData(map).ok();
         return resp;
+    }
+
+    /**
+     * 登录
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    @RequestMapping("/user/doLogin")
+    public ResponseData<LoginUser> doLogin(String username, String password) {
+        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
+        if ("admin".equals(username) && "123456".equals(password)) {
+            StpUtil.login(10001);
+            LoginUser loginUser = new LoginUser();
+            loginUser.setUsername(username);
+            loginUser.setPassword(password);
+            loginUser.setObj(StpUtil.getTokenInfo());
+            return ResponseData.success(loginUser);
+        }
+        return ResponseData.failed("登录失败！");
+    }
+
+    /**
+     * 退出
+     */
+    @RequestMapping("/user/logout")
+    public ResponseData<String> logout() {
+        StpUtil.logout();
+        return ResponseData.success("退出登录成功！");
     }
 }

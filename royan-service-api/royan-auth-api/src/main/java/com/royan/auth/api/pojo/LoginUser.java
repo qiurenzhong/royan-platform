@@ -7,6 +7,12 @@ import lombok.Data;
  * @date 2021/4/8 14:03
  */
 @Data
-public class SecurityUser {
+public class LoginUser {
+
+    private String username;
+
+    private String password;
+
+    private Object obj;
 
 }
