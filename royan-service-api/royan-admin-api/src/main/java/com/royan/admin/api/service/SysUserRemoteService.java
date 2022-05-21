@@ -22,24 +22,66 @@ import java.util.List;
 @FeignClient(name = ServerInterface.SERVICE_NAME, configuration = FeignInterceptor.class, fallback = SysUserFeignFallback.class)
 public interface SysUserRemoteService {
 
+    /**
+     * 获取用户详情
+     *
+     * @param userBO
+     * @return
+     */
     @RequestMapping(value = "/user/get", method = RequestMethod.POST)
     ResponseData<SysUserVO> get(@RequestBody SysUserBO userBO);
 
+    /**
+     * 获取用户列表
+     *
+     * @param userBO
+     * @return
+     */
     @RequestMapping(value = "/user/list", method = RequestMethod.POST)
     ResponseData<List<SysUserVO>> list(@RequestBody SysUserBO userBO);
 
+    /**
+     * 新增系统用户
+     *
+     * @param userBO
+     * @return
+     */
     @RequestMapping(value = "/user/save", method = RequestMethod.POST)
     ResponseData<Integer> save(@RequestBody SysUserBO userBO);
 
+    /**
+     * 删除用户
+     *
+     * @param userBO
+     * @return
+     */
     @RequestMapping(value = "/user/delete", method = RequestMethod.POST)
     ResponseData<Integer> delete(@RequestBody SysUserBO userBO);
 
+    /**
+     * 修改用户
+     *
+     * @param userBO
+     * @return
+     */
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
     ResponseData<Integer> update(@RequestBody SysUserBO userBO);
 
+    /**
+     * 分页查询用户
+     *
+     * @param userBO
+     * @return
+     */
     @RequestMapping(value = "/user/search", method = RequestMethod.POST)
     ResponseData<Pagination<SysUserVO>> search(@RequestBody SysUserBO userBO);
 
+    /**
+     * 根据用户名获取用户信息
+     *
+     * @param username
+     * @return
+     */
     @RequestMapping(value = "/user/getUserByUsername", method = RequestMethod.POST)
     ResponseData<SysUserVO> getUserByUsername(@RequestBody String username);
 }

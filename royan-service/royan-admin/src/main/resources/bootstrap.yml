@@ -6,6 +6,8 @@ spring:
     name: royan-admin
   profiles:
     active: dev
+  main:
+    allow-bean-definition-overriding: true
   cloud:
     nacos:
       config: #配置中心

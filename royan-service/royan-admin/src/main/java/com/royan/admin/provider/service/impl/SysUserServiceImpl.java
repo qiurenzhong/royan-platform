@@ -42,7 +42,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         SysUserVO sysUserVO = new SysUserVO();
         SysUser sysUser = getOne(new LambdaQueryWrapper<SysUser>()
-                .eq(SysUser::getUsername, username));
+                .eq(SysUser::getUserName, username));
 
         if (Objects.isNull(sysUser)) {
             return sysUserVO;
@@ -59,7 +59,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Page<SysUser> page = new Page<>(1, 200);
         //page.setOrders(sysUserBO.getOrderByClauses());
         Page<SysUser> userIPage = getBaseMapper().selectPage(
-                page, Wrappers.<SysUser>lambdaQuery().like(SysUser::getUsername, "Van")
+                page, Wrappers.<SysUser>lambdaQuery().like(SysUser::getUserName, "Van")
         );
         log.error("总条数 -------------> {}", userIPage.getTotal());
         log.error("当前页数 -------------> {}", userIPage.getCurrent());
