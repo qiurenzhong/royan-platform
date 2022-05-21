@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 菜单权限表(SysMenu)表响应请求实体类
@@ -54,5 +55,7 @@ public class SysMenuVO implements Serializable {
     private Date updateTime;
     //备注
     private String remark;
+    //子级菜单
+    private List<SysMenuVO> children;
 
 }

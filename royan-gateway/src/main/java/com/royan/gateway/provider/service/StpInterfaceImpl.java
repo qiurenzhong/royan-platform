@@ -3,6 +3,7 @@ package com.royan.gateway.provider.service;
 import cn.dev33.satoken.stp.StpInterface;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +21,10 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
+        List<String> list = new ArrayList<>();
+        list.add("admin");
 
-        return null;
+        return list;
     }
 
     /**

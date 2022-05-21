@@ -54,4 +54,9 @@ public class SysMenuFeignFallback implements SysMenuRemoteService {
         return null;
     }
 
+    @Override
+    public ResponseData<List<SysMenuVO>> getMenuTree(SysMenuBO sysMenuBO) {
+        return null;
+    }
+
 }

@@ -26,4 +26,24 @@
     </resultMap>
 
 
+    <!--获取菜单树-->
+    <select id="selectMenuTreeAll" resultMap="BaseResultMap">
+        select distinct m.id,
+                        m.parent_id,
+                        m.menu_name,
+                        m.path,
+                        m.component,
+                        m.visible,
+                        m.status,
+                        ifnull(m.perms, '') as perms,
+                        m.is_frame,
+                        m.menu_type,
+                        m.icon,
+                        m.order_num,
+                        m.create_time
+        from sys_menu m
+        where m.menu_type in ('M', 'C')
+          and m.status = 0
+        order by m.parent_id, m.order_num
+    </select>
 </mapper>

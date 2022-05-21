@@ -68,4 +68,10 @@ public class SysMenuController implements SysMenuRemoteService {
         return resp;
     }
 
+    @Override
+    public ResponseData<List<SysMenuVO>> getMenuTree(@RequestBody SysMenuBO sysMenuBO) {
+        ResponseData<List<SysMenuVO>> resp = new ResponseData<>();
+        resp.setData(sysMenuService.selectMenuTreeAll(sysMenuBO)).ok();
+        return resp;
+    }
 }

@@ -77,4 +77,13 @@ public interface SysMenuRemoteService {
     @RequestMapping(value = "/sysMenu/search", method = RequestMethod.POST)
     ResponseData<Pagination<SysMenuVO>> search(@RequestBody SysMenuBO sysMenuBO);
 
+    /**
+     * 获取菜单树
+     *
+     * @param sysMenuBO
+     * @return
+     */
+    @RequestMapping(value = "/sysMenu/getMenuTree", method = RequestMethod.POST)
+    ResponseData<List<SysMenuVO>> getMenuTree(@RequestBody SysMenuBO sysMenuBO);
+
 }

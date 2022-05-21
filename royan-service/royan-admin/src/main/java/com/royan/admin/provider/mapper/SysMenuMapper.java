@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.royan.admin.provider.model.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 菜单权限表(SysMenu)表数据库访问层
  *
@@ -13,5 +15,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
-
+    /**
+     * 查询菜单树
+     *
+     * @return
+     */
+    List<SysMenu> selectMenuTreeAll();
 }
