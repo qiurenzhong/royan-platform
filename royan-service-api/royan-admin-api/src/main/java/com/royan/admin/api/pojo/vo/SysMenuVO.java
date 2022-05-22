@@ -2,6 +2,8 @@ package com.royan.admin.api.pojo.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -57,5 +59,10 @@ public class SysMenuVO implements Serializable {
     private String remark;
     //子级菜单
     private List<SysMenuVO> children;
+
+    public <T> SysMenuVO setSysUserVO(T obj) {
+        Mapper mapper = new DozerBeanMapper();
+        return mapper.map(obj, SysMenuVO.class);
+    }
 
 }

@@ -126,4 +126,8 @@ public class RestMessage implements Serializable{
     private String message;
  
     /* getter/setter */
+
 }
+
+2022-05-22 新增dozer转换工具
+

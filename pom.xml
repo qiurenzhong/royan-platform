@@ -43,6 +43,7 @@
         <commons-collections.version>3.2.2</commons-collections.version>
         <lombok.version>1.18.22</lombok.version>
         <hutool.version>5.7.14</hutool.version>
+        <dozer.version>5.5.1</dozer.version>
         <easyexcle.version>3.0.5</easyexcle.version>
         <magic.version>2.0.0-beta.2</magic.version>
         <skipTests>true</skipTests>
@@ -285,6 +286,14 @@
                 <artifactId>magic-api-spring-boot-starter</artifactId>
                 <version>${magic.version}</version>
             </dependency>
+
+            <!--pojo转换工具-->
+            <dependency>
+                <groupId>net.sf.dozer</groupId>
+                <artifactId>dozer</artifactId>
+                <version>${dozer.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

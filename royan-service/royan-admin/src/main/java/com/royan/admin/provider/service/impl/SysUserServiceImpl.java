@@ -1,6 +1,5 @@
 package com.royan.admin.provider.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -12,6 +11,7 @@ import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.provider.mapper.SysUserMapper;
 import com.royan.admin.provider.model.SysUser;
 import com.royan.admin.provider.service.SysUserService;
+import com.royan.admin.provider.utils.ConvertUtil;
 import com.royan.framework.api.model.Pagination;
 import com.royan.framework.redis.annotation.RedisLock;
 import com.royan.framework.redis.annotation.ReqParams;
@@ -33,23 +33,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
 
     @Override
-    @DS("slave")
+    @DS("slave") // 查询从库
     public SysUserVO getUserByUsername(String username) {
         if (StrUtil.isEmpty(username)){
             return null;
         }
-        //SysUser sysUser = getBaseMapper().getUserByUsername(username);
-
         SysUserVO sysUserVO = new SysUserVO();
-        SysUser sysUser = getOne(new LambdaQueryWrapper<SysUser>()
-                .eq(SysUser::getUserName, username));
-
+        SysUser sysUser = getOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUserName, username));
         if (Objects.isNull(sysUser)) {
             return sysUserVO;
         }
-
-        BeanUtil.copyProperties(sysUser, sysUserVO);
-        return sysUserVO;
+        return sysUserVO.setSysUserVO(sysUser);
     }
 
     @Override
@@ -59,8 +53,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Page<SysUser> page = new Page<>(1, 200);
         //page.setOrders(sysUserBO.getOrderByClauses());
         Page<SysUser> userIPage = getBaseMapper().selectPage(
-                page, Wrappers.<SysUser>lambdaQuery().like(SysUser::getUserName, "Van")
-        );
+                page, Wrappers.<SysUser>lambdaQuery());
         log.error("总条数 -------------> {}", userIPage.getTotal());
         log.error("当前页数 -------------> {}", userIPage.getCurrent());
         log.error("当前每页显示数 -------------> {}", userIPage.getSize());
@@ -68,13 +61,24 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Pagination<SysUserVO> pagination = Pagination.getInstance(1, 200);
         pagination.setRowTotal(userIPage.getTotal());
         pagination.setPageTotal(userIPage.getTotal());
-//        pagination.setRows(userIPage.getRecords());
+        pagination.setRows(ConvertUtil.convertBean(userIPage.getRecords()));
         return pagination;
     }
 
     @Override
     @RedisLock(prefix = "add:user", expire = 10, timeUnit = TimeUnit.SECONDS)
     public Integer saveSysUser(@ReqParams(name = "userBO") SysUserBO sysUserBO) {
+
+        return null;
+    }
+
+    @Override
+    public Integer updateSysUser(SysUserBO sysUserBO) {
+        return null;
+    }
+
+    @Override
+    public Integer deleteSysUser(SysUserBO sysUserBO) {
         return null;
     }
 }

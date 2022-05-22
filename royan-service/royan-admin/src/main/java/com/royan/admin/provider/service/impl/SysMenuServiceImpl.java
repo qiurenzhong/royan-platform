@@ -1,6 +1,5 @@
 package com.royan.admin.provider.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.royan.admin.api.pojo.bo.SysMenuBO;
 import com.royan.admin.api.pojo.vo.SysMenuVO;
@@ -32,9 +31,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         for (SysMenu sysMenu : sysMenus) {
             //如果parentId为0，则代表是根节点，存入到集合中
             if (sysMenu.getParentId().equals(0L)) {
-                SysMenuVO sysMenuVO = new SysMenuVO();
-                BeanUtil.copyProperties(sysMenu, sysMenuVO);
-                parentList.add(sysMenuVO);
+                parentList.add(new SysMenuVO().setSysUserVO(sysMenu));
             }
         }
         //查找根节点下的子类，因为根节点的id就是 子节点的parentId;
@@ -53,8 +50,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             if (sysMenu.getParentId().equals(id)) {
                 //存入子节点集合
                 SysMenuVO sysMenuVO = new SysMenuVO();
-                BeanUtil.copyProperties(sysMenu, sysMenuVO);
-                children.add(sysMenuVO);
+                children.add(sysMenuVO.setSysUserVO(sysMenu));
             }
         }
 

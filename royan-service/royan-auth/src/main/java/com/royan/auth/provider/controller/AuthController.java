@@ -5,10 +5,12 @@ import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.oauth2.logic.SaOAuth2Handle;
 import cn.dev33.satoken.oauth2.logic.SaOAuth2Util;
 import cn.dev33.satoken.stp.StpUtil;
+import com.royan.admin.api.service.SysUserRemoteService;
 import com.royan.auth.api.pojo.LoginUser;
 import com.royan.auth.api.service.AuthRemoteService;
 import com.royan.framework.api.entity.ResponseData;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
@@ -23,6 +25,9 @@ import java.util.Map;
 @Slf4j
 @RestController
 public class AuthController implements AuthRemoteService {
+
+    @Autowired
+    private SysUserRemoteService sysUserRemoteService;
 
     /**
      * 处理所有OAuth2相关请求
@@ -63,6 +68,17 @@ public class AuthController implements AuthRemoteService {
      */
     @PostMapping("/user/doLogin")
     public ResponseData<LoginUser> doLogin(@RequestBody LoginUser loginUser) {
+//        String username = loginUser.getUsername();
+//        if (StrUtil.isBlank(username)) {
+//            throw new ApplicationException(ResponseCode.PARAM_ERROR);
+//        }
+//        ResponseData<SysUserVO> responseData = sysUserRemoteService.getUserByUsername(username);
+//        SysUserVO sysUserVO = responseData.getData();
+//        if (sysUserVO != null) {
+//            System.out.println("登录成功！");
+//        }
+
+
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
         if ("admin".equals(loginUser.getUsername()) && "123456".equals(loginUser.getPassword())) {
             StpUtil.login(10001);

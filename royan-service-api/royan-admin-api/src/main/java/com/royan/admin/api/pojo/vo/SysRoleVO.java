@@ -2,6 +2,8 @@ package com.royan.admin.api.pojo.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -44,5 +46,10 @@ public class SysRoleVO implements Serializable {
     private Date updateTime;
     //备注
     private String remark;
+
+    public <T> SysRoleVO setSysUserVO(T obj) {
+        Mapper mapper = new DozerBeanMapper();
+        return mapper.map(obj, SysRoleVO.class);
+    }
 
 }

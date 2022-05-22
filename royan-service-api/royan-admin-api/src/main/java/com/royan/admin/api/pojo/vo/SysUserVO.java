@@ -2,6 +2,8 @@ package com.royan.admin.api.pojo.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +15,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode
 public class SysUserVO implements Serializable {
+    private Long id;
     //部门ID
     private Long deptId;
     //用户账号
@@ -39,4 +42,9 @@ public class SysUserVO implements Serializable {
     private Date loginDate;
     //备注
     private String remark;
+
+    public <T> SysUserVO setSysUserVO(T obj) {
+        Mapper mapper = new DozerBeanMapper();
+        return mapper.map(obj, SysUserVO.class);
+    }
 }

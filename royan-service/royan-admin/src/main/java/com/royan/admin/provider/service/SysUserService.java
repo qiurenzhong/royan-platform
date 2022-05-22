@@ -31,5 +31,27 @@ public interface SysUserService extends IService<SysUser> {
      */
     Pagination<SysUserVO> search(SysUserBO sysUserBO);
 
+    /**
+     * 新增用户
+     *
+     * @param sysUserBO
+     * @return
+     */
     Integer saveSysUser(SysUserBO sysUserBO);
+
+    /**
+     * 修改用户
+     *
+     * @param sysUserBO
+     * @return
+     */
+    Integer updateSysUser(SysUserBO sysUserBO);
+
+    /**
+     * 删除用户
+     *
+     * @param sysUserBO
+     * @return
+     */
+    Integer deleteSysUser(SysUserBO sysUserBO);
 }

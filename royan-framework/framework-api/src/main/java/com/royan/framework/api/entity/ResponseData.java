@@ -52,6 +52,7 @@ public class ResponseData<T> implements Serializable {
     public void ok() {
         this.code = ResponseCode.SUCCESS.getCode();
         this.msg = ResponseCode.SUCCESS.getMessage();
+        this.isSuccess();
     }
 
     public static <T> ResponseData<T> success() {
