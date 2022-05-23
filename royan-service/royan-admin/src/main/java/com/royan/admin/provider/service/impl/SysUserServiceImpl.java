@@ -1,5 +1,6 @@
 package com.royan.admin.provider.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -13,13 +14,11 @@ import com.royan.admin.provider.model.SysUser;
 import com.royan.admin.provider.service.SysUserService;
 import com.royan.admin.provider.utils.ConvertUtil;
 import com.royan.framework.api.model.Pagination;
-import com.royan.framework.redis.annotation.RedisLock;
-import com.royan.framework.redis.annotation.ReqParams;
+import com.royan.framework.redis.annotation.RedissonLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 用户信息表(SysUser)表服务实现类
@@ -66,10 +65,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    @RedisLock(prefix = "add:user", expire = 10, timeUnit = TimeUnit.SECONDS)
-    public Integer saveSysUser(@ReqParams(name = "userBO") SysUserBO sysUserBO) {
-
-        return null;
+    @RedissonLock
+    public Integer saveSysUser(SysUserBO sysUserBO) {
+        SysUserVO vo = sysUserBO.getVo();
+        SysUser sysUser = new SysUser();
+        BeanUtil.copyProperties(vo, sysUser);
+        return getBaseMapper().insert(sysUser);
     }
 
     @Override

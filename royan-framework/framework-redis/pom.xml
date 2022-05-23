@@ -37,6 +37,7 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- spring aop 实现自定义注解用到 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -47,5 +48,12 @@
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-data-24</artifactId>
+            <version>3.17.1</version>
+        </dependency>
+
     </dependencies>
 </project>
