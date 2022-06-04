@@ -19,6 +19,9 @@
         <module>royan-auth</module>
         <module>royan-magic</module>
         <module>royan-message</module>
+        <module>royan-account</module>
+        <module>royan-order</module>
+        <module>royan-storage</module>
     </modules>
 
 </project>

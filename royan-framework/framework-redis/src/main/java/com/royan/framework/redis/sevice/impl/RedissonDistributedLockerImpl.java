@@ -21,6 +21,7 @@ public class RedissonDistributedLockerImpl implements RedissonDistributedLocker 
     @Autowired
     private RedissonClient redissonClient;
 
+    // 具有Watch Dog 自动延期机制 默认续30s 每隔30/3=10 秒续到30s
     @Override
     public void lock(String lockKey) {
         RLock lock = redissonClient.getLock(lockKey);
@@ -33,6 +34,8 @@ public class RedissonDistributedLockerImpl implements RedissonDistributedLocker 
         lock.unlock();
     }
 
+    // 拿锁失败时会不停的重试
+    // 没有Watch Dog ，10s后自动释放
     @Override
     public void lock(String lockKey, int timeout) {
         RLock lock = redissonClient.getLock(lockKey);

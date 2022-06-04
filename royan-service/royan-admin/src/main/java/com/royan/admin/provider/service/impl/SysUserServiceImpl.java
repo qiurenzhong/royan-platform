@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 用户信息表(SysUser)表服务实现类
@@ -70,6 +71,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUserVO vo = sysUserBO.getVo();
         SysUser sysUser = new SysUser();
         BeanUtil.copyProperties(vo, sysUser);
+        try {
+            // 模拟业务未处理完成，锁是否会释放
+            Thread.sleep(TimeUnit.SECONDS.toMillis(60));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return getBaseMapper().insert(sysUser);
     }
 
