@@ -22,36 +22,42 @@ public class GenericModel<K> {
 
     private static final long serialVersionUID = 1L;
 
-   //IdType.ASSIGN_ID 自动生成主键ID
-    @TableId(type = IdType.ASSIGN_ID)
+
+    /**
+     * IdType.ASSIGN_ID 自动生成主键ID
+     *
+     */
+    @TableId(type = IdType.AUTO)
     protected K id;
+    /**
+     * 创建人
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE,insertStrategy = FieldStrategy.DEFAULT)
+    protected String createBy;
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE,insertStrategy = FieldStrategy.DEFAULT)
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    protected Timestamp createTime;
 
- //创建人
- @TableField(fill = FieldFill.INSERT_UPDATE,insertStrategy = FieldStrategy.DEFAULT)
- protected String createBy;
+    // 更新人
+    @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
+    protected String updateBy;
 
- //创建时间
- @TableField(fill = FieldFill.INSERT_UPDATE,insertStrategy = FieldStrategy.DEFAULT)
- @JsonInclude(value = JsonInclude.Include.NON_NULL)
- @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
- protected Timestamp createTime;
+    // 更新时间
+    @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    protected Timestamp updateTime;
 
- // 更新人
- @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
- protected String updateBy;
+    // 删除标识（0：未删除，1：已删除）
+    @TableLogic
+    @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
+    protected Long enabledFlag;
 
- // 更新时间
- @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
- @JsonInclude(value = JsonInclude.Include.NON_NULL)
- @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
- protected Timestamp updateTime;
-
- // 删除标识（0：未删除，1：已删除）
- @TableLogic
- @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
- protected Long enabledFlag;
-
- // 链路路由ID
- protected String traceId;
+    // 链路路由ID
+    protected String traceId;
 
 }
