@@ -2,11 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.royan.account.provider.mapper.AccountMapper">
 
-<!--@Table account-->
- <resultMap id="BaseResultMap" type="com.royan.account.provider.model.Account">      
-        <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="balance" column="balance" jdbcType="INTEGER"/>
+    <!--@Table account-->
+    <resultMap id="BaseResultMap" type="com.royan.account.provider.model.Account">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="total" jdbcType="DECIMAL" property="total"/>
+        <result column="used" jdbcType="DECIMAL" property="used"/>
+        <result column="residue" jdbcType="DECIMAL" property="residue"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="enabledFlag" column="enabled_flag" jdbcType="VARCHAR"/>
     </resultMap>
 
+
+    <sql id="Base_Column_List">
+        id, user_id, total, used, residue
+    </sql>
+    <select id="selectByUserId" resultType="com.royan.account.provider.model.Account">
+        select
+        <include refid="Base_Column_List"/>
+        from t_account
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+    <update id="decrease">
+        UPDATE t_account
+        SET residue = residue - #{money},
+            used    = used + #{money}
+        WHERE user_id = #{userId};
+    </update>
 
 </mapper>

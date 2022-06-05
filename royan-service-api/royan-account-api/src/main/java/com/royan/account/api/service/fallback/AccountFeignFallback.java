@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,6 +25,11 @@ public class AccountFeignFallback implements AccountRemoteService {
 
     @Setter
     Throwable cause;
+
+    @Override
+    public ResponseData decrease(Long userId, BigDecimal money) {
+        return null;
+    }
 
     @Override
     public ResponseData<AccountVO> get(AccountBO accountBO) {

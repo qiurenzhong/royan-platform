@@ -1,7 +1,7 @@
 package com.royan.storage.api.pojo.bo;
 
-import com.royan.storage.api.pojo.vo.ProductVO;
 import com.royan.framework.api.model.GenericBO;
+import com.royan.storage.api.pojo.vo.StorageVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,10 +13,10 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode
-public class ProductBO extends GenericBO<ProductVO> {
+public class StorageBO extends GenericBO<StorageVO> {
 
 
-    public ProductBO() {
-        setVo(new ProductVO());
+    public StorageBO() {
+        setVo(new StorageVO());
     }
 }

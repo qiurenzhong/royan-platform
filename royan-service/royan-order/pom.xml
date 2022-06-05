@@ -45,6 +45,18 @@
         </dependency>
 
         <dependency>
+            <groupId>com.royan.account.api</groupId>
+            <artifactId>royan-account-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.royan.storage.api</groupId>
+            <artifactId>royan-storage-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>

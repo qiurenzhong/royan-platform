@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.royan.account.provider.model.Account;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.math.BigDecimal;
+
 /**
  * (Account)表数据库访问层
  *
@@ -13,5 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AccountMapper extends BaseMapper<Account> {
 
-   
+    Account selectByUserId(Long userId);
+    int decrease(Long userId, BigDecimal money);
 }

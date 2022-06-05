@@ -11,4 +11,10 @@ import com.royan.order.provider.model.Orders;
  */
 public interface OrdersService extends IService<Orders> {
 
+    /**
+     * 创建订单数据
+     * @param order
+     */
+    void create(Orders order);
+
 }

@@ -24,12 +24,6 @@ public class GenericModel<K> {
 
 
     /**
-     * IdType.ASSIGN_ID 自动生成主键ID
-     *
-     */
-    @TableId(type = IdType.AUTO)
-    protected K id;
-    /**
      * 创建人
      */
     @TableField(fill = FieldFill.INSERT_UPDATE,insertStrategy = FieldStrategy.DEFAULT)
