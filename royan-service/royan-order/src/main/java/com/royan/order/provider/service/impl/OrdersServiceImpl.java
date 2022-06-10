@@ -2,12 +2,15 @@ package com.royan.order.provider.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.royan.account.api.service.AccountRemoteService;
+import com.royan.account.api.service.dubbo.AccountService;
 import com.royan.order.provider.mapper.OrdersMapper;
 import com.royan.order.provider.model.Orders;
 import com.royan.order.provider.service.OrdersService;
 import com.royan.storage.api.service.StorageRemoteService;
+import com.royan.storage.api.service.dubbo.StorageService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @Autowired
     private StorageRemoteService storageRemoteService;
 
+    @DubboReference
+    private AccountService accountService;
+    @DubboReference
+    private StorageService storageService;
+
     /**
      * 创建订单
      *
@@ -44,11 +52,16 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         getBaseMapper().insert(order);
         //2 扣减库存
         log.info("----->订单服务开始调用库存服务，开始扣减库存");
-        storageRemoteService.decrease(order.getProductId(), order.getCount());
+        // openFeign方式调用
+        //storageRemoteService.decrease(order.getProductId(), order.getCount());
+        storageService.decrease(order.getProductId(), order.getCount());
         log.info("----->订单微服务开始调用库存，扣减库存结束");
         //3 扣减账户
         log.info("----->订单服务开始调用账户服务，开始从账户扣减商品金额");
-        accountRemoteService.decrease(order.getUserId(), order.getMoney());
+        // openFeign方式调用
+        //accountRemoteService.decrease(order.getUserId(), order.getMoney());
+        // dubbo方式调用
+        accountService.decrease(order.getProductId(), order.getMoney());
         log.info("----->订单微服务开始调用账户，账户扣减商品金额结束");
         //4 修改订单状态，从零到1,1代表已经完成
         log.info("----->修改订单状态开始");
