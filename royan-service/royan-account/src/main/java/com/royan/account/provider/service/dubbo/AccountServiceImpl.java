@@ -4,7 +4,7 @@ import com.royan.account.api.service.dubbo.AccountService;
 import com.royan.account.provider.mapper.AccountMapper;
 import com.royan.account.provider.model.Account;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -17,8 +17,8 @@ import java.math.BigDecimal;
  * @version 1.0.0
  */
 @Slf4j
-@Service
-public class AccountServiceI implements AccountService {
+@DubboService
+public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountMapper accountMapper;

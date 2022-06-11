@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.royan.account.provider.model.Account;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
  * @since 2022-06-05 02:05:46
  */
 @Mapper
+@Repository
 public interface AccountMapper extends BaseMapper<Account> {
 
     Account selectByUserId(@Param("userId") Long userId);

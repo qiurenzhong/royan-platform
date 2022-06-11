@@ -4,7 +4,7 @@ import com.royan.storage.api.service.dubbo.StorageService;
 import com.royan.storage.provider.mapper.StorageMapper;
 import com.royan.storage.provider.model.Storage;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version 1.0.0
  */
 @Slf4j
-@Service
-public class StorageServiceI implements StorageService {
+@DubboService
+public class StorageServiceImpl implements StorageService {
 
     @Autowired
     private StorageMapper storageMapper;
@@ -26,11 +26,11 @@ public class StorageServiceI implements StorageService {
         log.info("------->storage-service中扣减库存开始");
         log.info("------->storage-service 开始查询商品是否存在");
         Storage storage = storageMapper.selectByProductId(productId);
-        if (storage != null && storage.getResidue().intValue() >= count.intValue()) {
+        if (storage != null && storage.getResidue() >= count) {
             Storage storage2 = new Storage();
             storage2.setProductId(productId);
             storage.setUsed(storage.getUsed() + count);
-            storage.setResidue(storage.getTotal().intValue() - storage.getUsed());
+            storage.setResidue(storage.getTotal() - storage.getUsed());
             int decrease = storageMapper.decrease(storage);
             log.info("------->storage-service 扣减库存成功");
             return decrease;
