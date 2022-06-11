@@ -1,5 +1,7 @@
 package com.royan.storage.provider.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.royan.framework.jdbc.model.GenericModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,12 +14,13 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Product extends GenericModel<Long> {
-    
+public class Storage extends GenericModel<Long> {
+
+    @TableId(type = IdType.AUTO)
     private Long id;
-    
-    private Integer price;
-    
-    private Integer stock;
+    private Long productId;
+    private Integer total;
+    private Integer used;
+    private Integer residue;
 
 }

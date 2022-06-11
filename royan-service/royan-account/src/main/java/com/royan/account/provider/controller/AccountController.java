@@ -9,8 +9,10 @@ import com.royan.framework.api.model.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -25,6 +27,11 @@ public class AccountController implements AccountRemoteService {
 
     @Autowired
     private AccountService accountService;
+
+    @Override
+    public ResponseData decrease(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money) {
+        return ResponseData.success(accountService.decrease(userId,money));
+    }
 
     @Override
     public ResponseData<AccountVO> get(@RequestBody AccountBO accountBO) {

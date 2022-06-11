@@ -7,10 +7,9 @@ import com.royan.account.api.service.fallback.AccountFeignFallback;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -21,6 +20,9 @@ import java.util.List;
  */
 @FeignClient(name = ServerInterface.SERVICE_NAME, fallback = AccountFeignFallback.class)
 public interface AccountRemoteService {
+
+    @PostMapping(value = "/account/decrease")
+    ResponseData decrease(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money);
 
     /**
      *  获取

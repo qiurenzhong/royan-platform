@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode
-public class ProductVO implements Serializable {
+public class StorageVO implements Serializable {
    
        
     private Long id;
