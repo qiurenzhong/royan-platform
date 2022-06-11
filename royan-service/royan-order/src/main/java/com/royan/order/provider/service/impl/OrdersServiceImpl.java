@@ -24,30 +24,29 @@ import org.springframework.stereotype.Service;
 @Service("ordersService")
 public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> implements OrdersService {
 
-    @Autowired
-    private AccountRemoteService accountRemoteService;
-
-    @Autowired
-    private StorageRemoteService storageRemoteService;
+//    @Autowired
+//    private AccountRemoteService accountRemoteService;
+//
+//    @Autowired
+//    private StorageRemoteService storageRemoteService;
 
     @DubboReference
-    private AccountService accountService;
+    AccountService accountService;
     @DubboReference
-    private StorageService storageService;
+    StorageService storageService;
 
     /**
      * 创建订单
      *
      * 创建订单->调用库存服务扣减库存->调用账户服务扣减账户余额->修改订单状态
      *
-     *  @GlobalTransactional 全局事务
      */
     @Override
     @GlobalTransactional(name = "fsp-create-order",rollbackFor = Exception.class)
     public void create(Orders order) {
         log.info("----->开始新建订单");
         //1 新建订单
-        order.setUserId(new Long(1));
+        order.setUserId(1L);
         order.setStatus(0);
         getBaseMapper().insert(order);
         //2 扣减库存

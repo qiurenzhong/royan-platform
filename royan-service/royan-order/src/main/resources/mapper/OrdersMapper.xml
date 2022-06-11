@@ -17,13 +17,8 @@
          <result property="enabledFlag" column="enabled_flag" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id
-        , user_id, product_id, count, money, status
-    </sql>
-
     <update id="update">
-        update t_order
+        update t_orders
         set status = 1
         where user_id = #{userId}
           and status = #{status};

@@ -3,6 +3,7 @@ package com.royan.account.provider.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.royan.account.provider.model.Account;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 @Mapper
 public interface AccountMapper extends BaseMapper<Account> {
 
-    Account selectByUserId(Long userId);
-    int decrease(Long userId, BigDecimal money);
+    Account selectByUserId(@Param("userId") Long userId);
+
+    int decrease(@Param("userId")Long userId,@Param("money") BigDecimal money);
 }
