@@ -19,10 +19,11 @@ import java.sql.Timestamp;
 @Setter
 @Getter
 public class GenericModel<K> {
-
-    private static final long serialVersionUID = 1L;
-
-
+    /**
+     * 自动生成主键ID
+     */
+    @TableId
+    protected K id;
     /**
      * 创建人
      */
@@ -35,23 +36,27 @@ public class GenericModel<K> {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     protected Timestamp createTime;
-
-    // 更新人
+    /**
+     * 更新人
+     */
     @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
     protected String updateBy;
-
-    // 更新时间
+    /**
+     * 更新时间
+     */
     @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     protected Timestamp updateTime;
-
-    // 删除标识（0：未删除，1：已删除）
+    /**
+     * 删除标识（0：未删除，1：已删除）
+     */
     @TableLogic
     @TableField(fill = FieldFill.INSERT_UPDATE,updateStrategy = FieldStrategy.DEFAULT)
     protected Long enabledFlag;
-
-    // 链路路由ID
+    /**
+     * 链路路由ID
+     */
     protected String traceId;
 
 }

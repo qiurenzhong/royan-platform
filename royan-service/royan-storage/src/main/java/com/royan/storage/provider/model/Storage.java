@@ -15,9 +15,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Storage extends GenericModel<Long> {
-
-    @TableId(type = IdType.AUTO)
-    private Long id;
     private Long productId;
     private Integer total;
     private Integer used;

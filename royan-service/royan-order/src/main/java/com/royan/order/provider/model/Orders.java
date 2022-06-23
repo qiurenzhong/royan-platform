@@ -18,8 +18,6 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class Orders extends GenericModel<Long> {
 
-    @TableId(type = IdType.AUTO)
-    private Long id;
     private Long userId;
     private Long productId;
     private Integer count;
