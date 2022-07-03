@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,12 +13,14 @@ import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.provider.mapper.SysUserMapper;
 import com.royan.admin.provider.model.SysUser;
 import com.royan.admin.provider.service.SysUserService;
-import com.royan.admin.provider.utils.ConvertUtil;
+import com.royan.framework.api.model.OrderByClause;
 import com.royan.framework.api.model.Pagination;
+import com.royan.framework.core.utils.BeanCopierUtils;
 import com.royan.framework.redis.annotation.RedissonLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +38,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @DS("slave") // 查询从库
     public SysUserVO getUserByUsername(String username) {
-        if (StrUtil.isEmpty(username)){
+        if (StrUtil.isEmpty(username)) {
             return null;
         }
         SysUserVO sysUserVO = new SysUserVO();
@@ -48,20 +51,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public Pagination<SysUserVO> search(SysUserBO sysUserBO) {
-
-        log.info("----------------分页查询-----------------");
-        Page<SysUser> page = new Page<>(1, 200);
-        //page.setOrders(sysUserBO.getOrderByClauses());
-        Page<SysUser> userIPage = getBaseMapper().selectPage(
-                page, Wrappers.<SysUser>lambdaQuery());
-        log.error("总条数 -------------> {}", userIPage.getTotal());
-        log.error("当前页数 -------------> {}", userIPage.getCurrent());
-        log.error("当前每页显示数 -------------> {}", userIPage.getSize());
-
-        Pagination<SysUserVO> pagination = Pagination.getInstance(1, 200);
+        SysUser sysUser = BeanCopierUtils.copy(sysUserBO.getVo(), SysUser.class);
+        Integer pageNum = sysUserBO.getPageNum();
+        Integer pageSize = sysUserBO.getPageSize();
+        Page<SysUser> pageSysUser = new Page<>(pageNum, pageSize);
+        List<OrderByClause> orderByClauses = sysUserBO.getOrderByClauses();
+        pageSysUser.setOrders(BeanCopierUtils.copyArray(orderByClauses, OrderItem.class));
+        Page<SysUser> userIPage = getBaseMapper().selectPage(pageSysUser, Wrappers.lambdaQuery(sysUser));
+        Pagination<SysUserVO> pagination = Pagination.getInstance4BO(sysUserBO);
         pagination.setRowTotal(userIPage.getTotal());
-        pagination.setPageTotal(userIPage.getTotal());
-        pagination.setRows(ConvertUtil.convertBean(userIPage.getRecords()));
+        pagination.setPageTotal(userIPage.getPages());
+        pagination.setRows(BeanCopierUtils.copyArray(userIPage.getRecords(), SysUserVO.class));
         return pagination;
     }
 
@@ -82,11 +82,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public Integer updateSysUser(SysUserBO sysUserBO) {
-        return null;
+        SysUser sysUser = new SysUser();
+        BeanCopierUtils.copy(sysUserBO.getVo(), sysUser);
+        return getBaseMapper().updateById(sysUser);
     }
 
     @Override
     public Integer deleteSysUser(SysUserBO sysUserBO) {
-        return null;
+        SysUser sysUser = new SysUser();
+        BeanCopierUtils.copy(sysUserBO.getVo(), sysUser);
+        return getBaseMapper().deleteById(sysUser);
     }
 }

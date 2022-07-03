@@ -1,7 +1,6 @@
 package com.royan.framework.api.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
@@ -10,8 +9,7 @@ import java.util.List;
  * @author Qiurz
  * @date 2021/4/18
  */
-@Setter
-@Getter
+@Data
 public class GenericBO<T> {
 
     private String menuId;
@@ -20,9 +18,9 @@ public class GenericBO<T> {
     private T vo;
     private String id;
     private String[] ids;
-    private Integer page;
-    private Integer pageSize = 10;
-    private String elasticsearchFlag = "N";
+    private Integer pageNum;
+    private Integer pageSize;
+    private String esFlag;
     private List<OrderByClause> orderByClauses;
     private List<Aggregation> aggregations;
     private String[] includes;

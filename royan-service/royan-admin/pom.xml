@@ -9,10 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.royan.admin.provider</groupId>
     <artifactId>royan-admin</artifactId>
     <packaging>jar</packaging>
-
 
     <dependencies>
         <dependency>
@@ -83,6 +81,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

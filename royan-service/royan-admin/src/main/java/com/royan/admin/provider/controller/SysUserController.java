@@ -5,9 +5,9 @@ import com.royan.admin.api.pojo.vo.SysUserVO;
 import com.royan.admin.api.service.SysUserRemoteService;
 import com.royan.admin.provider.model.SysUser;
 import com.royan.admin.provider.service.SysUserService;
-import com.royan.admin.provider.utils.ConvertUtil;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
+import com.royan.framework.core.utils.BeanCopierUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +42,7 @@ public class SysUserController implements SysUserRemoteService {
     public ResponseData<List<SysUserVO>> list(@RequestBody SysUserBO userBO) {
         ResponseData<List<SysUserVO>> resp = new ResponseData<>();
         List<SysUser> sysUsers = sysUserService.list();
-        List<SysUserVO> list = ConvertUtil.convertBean(sysUsers);
+        List<SysUserVO> list = BeanCopierUtils.copyArray(sysUsers,SysUserVO.class);
         resp.setData(list).ok();
         return resp;
     }

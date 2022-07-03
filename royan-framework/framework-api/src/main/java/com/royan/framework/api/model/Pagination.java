@@ -50,7 +50,7 @@ public class Pagination<T> {
     }
 
     public static Pagination getInstance4BO(GenericBO genericBO) {
-        Pagination pagination = new Pagination(genericBO.getPage(), genericBO.getPageSize(), true);
+        Pagination pagination = new Pagination(genericBO.getPageNum(), genericBO.getPageSize(), true);
         pagination.setCriteria(genericBO);
         return pagination;
     }

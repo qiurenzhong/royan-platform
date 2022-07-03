@@ -8,32 +8,32 @@ import java.io.Serializable;
  * @date 2021/4/18
  */
 public class OrderByClause implements Serializable {
-    private String field;
-    private int orderByMode = 0;
+    private String column;
+    private boolean asc = true;
     public static final String REGEX = "[\\w|-|_|.]*";
 
     public OrderByClause() {
     }
 
-    public String getField() {
-        return this.field;
+    public String getColumn() {
+        return this.column;
     }
 
-    public OrderByClause setField(String field) {
-        if (!field.matches(REGEX)) {
+    public OrderByClause setColumn(String column) {
+        if (!column.matches(REGEX)) {
             throw new RuntimeException("非法字段，请定义符合的字段！");
         } else {
-            this.field = field;
+            this.column = column;
             return this;
         }
     }
 
-    public int getOrderByMode() {
-        return this.orderByMode;
+    public boolean getAsc() {
+        return this.asc;
     }
 
-    public OrderByClause setOrderByMode(int orderByMode) {
-        this.orderByMode = orderByMode;
+    public OrderByClause setOrderByMode(boolean asc) {
+        this.asc = asc;
         return this;
     }
 }
