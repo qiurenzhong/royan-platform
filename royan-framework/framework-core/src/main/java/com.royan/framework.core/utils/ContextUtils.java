@@ -12,21 +12,23 @@ import com.royan.framework.core.domain.Context;
  * @date 2021/7/26
  */
 public class ContextUtils {
+	
+	private ContextUtils() {}
 
     private static final ThreadLocal<Context> contextThreadLocal = new InheritableThreadLocal<>();
 
 
-    public Context getContext() {
+    public static Context getContext() {
       return contextThreadLocal.get();
     }
 
 
-    public void setContext(Context context) {
+    public static void setContext(Context context) {
         contextThreadLocal.set(context);
     }
 
 
-    public void remove(){
+    public static void remove(){
         contextThreadLocal.remove();
     }
 }

@@ -2,7 +2,7 @@ package com.royan.admin.api.service.fallback;
 
 import com.royan.admin.api.pojo.bo.SysMenuBO;
 import com.royan.admin.api.pojo.vo.SysMenuVO;
-import com.royan.admin.api.service.SysMenuRemoteService;
+import com.royan.admin.api.service.feign.SysMenuRemoteService;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
 import lombok.Setter;

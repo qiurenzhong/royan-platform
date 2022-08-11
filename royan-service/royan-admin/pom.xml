@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>royan-admin</artifactId>
+    <groupId>com.royan.admin.provider</groupId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -33,16 +34,16 @@
             <artifactId>framework-core</artifactId>
         </dependency>
 
-        <dependency>
+    <!--    <dependency>
             <groupId>com.royan.framework</groupId>
             <artifactId>framework-search</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--knife4j文档-->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.royan.framework</groupId>
             <artifactId>framework-knife4j</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--sentinel限流-->
         <dependency>

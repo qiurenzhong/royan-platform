@@ -21,8 +21,8 @@
             <artifactId>sa-token-dao-redis-jackson</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-redis</artifactId>
         </dependency>
 
         <dependency>

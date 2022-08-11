@@ -2,7 +2,7 @@ package com.royan.admin.api.service.fallback;
 
 import com.royan.admin.api.pojo.bo.SysRoleBO;
 import com.royan.admin.api.pojo.vo.SysRoleVO;
-import com.royan.admin.api.service.SysRoleRemoteService;
+import com.royan.admin.api.service.feign.SysRoleRemoteService;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
 import lombok.Setter;

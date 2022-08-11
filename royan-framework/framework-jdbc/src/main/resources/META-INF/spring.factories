@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.royan.framework.jdbc.config.DruidConfig,\
+  com.royan.framework.jdbc.config.MybatisPlusConfig

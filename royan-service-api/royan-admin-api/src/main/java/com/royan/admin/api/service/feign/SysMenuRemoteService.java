@@ -1,4 +1,4 @@
-package com.royan.admin.api.service;
+package com.royan.admin.api.service.feign;
 
 import com.royan.admin.api.ServerInterface;
 import com.royan.admin.api.pojo.bo.SysMenuBO;

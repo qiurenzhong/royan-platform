@@ -8,6 +8,7 @@ spring:
     active: dev
   main:
     allow-bean-definition-overriding: true
+    allow-circular-references: true
   cloud:
     nacos:
       #配置中心

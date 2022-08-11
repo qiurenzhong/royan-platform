@@ -43,6 +43,11 @@
             <artifactId>framework-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-core</artifactId>
+        </dependency>
+
         <!-- SpringCloud Alibaba Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

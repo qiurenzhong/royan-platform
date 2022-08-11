@@ -2,7 +2,7 @@ package com.royan.admin.api.service.fallback;
 
 import com.royan.admin.api.pojo.bo.SysUserBO;
 import com.royan.admin.api.pojo.vo.SysUserVO;
-import com.royan.admin.api.service.SysUserRemoteService;
+import com.royan.admin.api.service.feign.SysUserRemoteService;
 import com.royan.framework.api.entity.ResponseCode;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
@@ -24,16 +24,6 @@ public class SysUserFeignFallback implements SysUserRemoteService {
 
     @Setter
     Throwable cause;
-
-    @Override
-    public ResponseData<SysUserVO> get(SysUserBO userBO) {
-        return null;
-    }
-
-    @Override
-    public ResponseData<List<SysUserVO>> list(SysUserBO userBO) {
-        return null;
-    }
 
     @Override
     public ResponseData<Integer> save(SysUserBO userBO) {

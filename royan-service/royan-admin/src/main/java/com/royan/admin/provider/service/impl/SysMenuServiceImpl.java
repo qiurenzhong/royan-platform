@@ -3,11 +3,11 @@ package com.royan.admin.provider.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.royan.admin.api.pojo.bo.SysMenuBO;
 import com.royan.admin.api.pojo.vo.SysMenuVO;
+import com.royan.admin.api.service.dubbo.SysMenuRpcService;
 import com.royan.admin.provider.mapper.SysMenuMapper;
 import com.royan.admin.provider.model.SysMenu;
-import com.royan.admin.provider.service.SysMenuService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.DubboService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ import java.util.List;
  * @since 2022-05-21 10:04:01
  */
 @Slf4j
-@Service("sysMenuService")
-public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
+@DubboService
+public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuRpcService {
 
     @Override
     public List<SysMenuVO> selectMenuTreeAll(SysMenuBO sysMenuBO) {

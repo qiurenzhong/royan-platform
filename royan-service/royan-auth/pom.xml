@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>royan-auth</artifactId>
+    <groupId>com.royan.auth.provider</groupId>
     <description>认证中心核心服务</description>
     <packaging>jar</packaging>
 
@@ -64,16 +65,17 @@
             <artifactId>sa-token-dao-redis-jackson</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
         <!-- Sa-Token插件：权限缓存与业务缓存分离 -->
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-alone-redis</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
-        </dependency>
         <!--公共依赖-->
         <dependency>
             <groupId>com.royan.auth.api</groupId>
@@ -90,18 +92,14 @@
         </dependency>
         <dependency>
             <groupId>com.royan.framework</groupId>
-            <artifactId>framework-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.royan.framework</groupId>
             <artifactId>framework-log</artifactId>
         </dependency>
 
         <!--knife4j文档-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.royan.framework</groupId>
             <artifactId>framework-knife4j</artifactId>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 
