@@ -71,6 +71,12 @@
             <version>${fk.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.royan.admin.api</groupId>
+            <artifactId>royan-admin-api</artifactId>
+            <version>${fk.version}</version>
+        </dependency>
+
         <!-- Sa-Token 权限认证（Reactor响应式集成）, 在线文档：http://sa-token.dev33.cn/ -->
         <dependency>
             <groupId>cn.dev33</groupId>

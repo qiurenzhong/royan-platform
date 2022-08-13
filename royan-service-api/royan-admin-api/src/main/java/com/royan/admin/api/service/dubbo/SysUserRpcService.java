@@ -53,4 +53,10 @@ public interface SysUserRpcService {
 	 */
 	Integer deleteSysUser(SysUserBO sysUserBO);
 	
+	/**
+	 *  根据用户ID获取用户
+	 * @param loginId 登录ID
+	 * @return
+	 */
+	SysUserVO getUserByUserId(String loginId);
 }

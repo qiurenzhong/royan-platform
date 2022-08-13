@@ -4,7 +4,6 @@ import com.royan.admin.api.ServerInterface;
 import com.royan.admin.api.pojo.bo.SysRoleBO;
 import com.royan.admin.api.pojo.vo.SysRoleVO;
 import com.royan.admin.api.service.fallback.SysRoleFeignFallback;
-import com.royan.admin.api.service.feign.FeignInterceptor;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -20,7 +19,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-05-21 11:04:35
  */
-@FeignClient(name = ServerInterface.SERVICE_NAME, configuration = FeignInterceptor.class, fallback = SysRoleFeignFallback.class)
+@FeignClient(name = ServerInterface.SERVICE_NAME,fallback = SysRoleFeignFallback.class)
 public interface SysRoleRemoteService {
 
     /**

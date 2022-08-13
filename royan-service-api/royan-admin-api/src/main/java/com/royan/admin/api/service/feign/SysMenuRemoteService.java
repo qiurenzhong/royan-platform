@@ -4,7 +4,6 @@ import com.royan.admin.api.ServerInterface;
 import com.royan.admin.api.pojo.bo.SysMenuBO;
 import com.royan.admin.api.pojo.vo.SysMenuVO;
 import com.royan.admin.api.service.fallback.SysMenuFeignFallback;
-import com.royan.admin.api.service.feign.FeignInterceptor;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -20,7 +19,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-05-21 10:30:34
  */
-@FeignClient(name = ServerInterface.SERVICE_NAME, configuration = FeignInterceptor.class, fallback = SysMenuFeignFallback.class)
+@FeignClient(name = ServerInterface.SERVICE_NAME, fallback = SysMenuFeignFallback.class)
 public interface SysMenuRemoteService {
 
     /**

@@ -14,12 +14,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @SpringBootApplication
 public class AuthApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(AuthApplication.class);
-        System.out.println("\nroyan-auth服务启动成功\n\n" + str);
-    }
-
-    static String str = "-------------------- royan-auth 示例 --------------------\n\n" +
-            "http://loaclhost:21402";
+	
+	public static void main(String[] args) {
+		SpringApplication.run(AuthApplication.class);
+	}
 }

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-     com.royan.framework.core.web.WebMvcConfig
+  com.royan.framework.core.web.WebConfigure

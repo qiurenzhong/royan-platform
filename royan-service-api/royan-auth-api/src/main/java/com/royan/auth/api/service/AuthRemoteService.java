@@ -1,11 +1,11 @@
 package com.royan.auth.api.service;
 
-import com.royan.auth.api.pojo.LoginUser;
+import com.royan.auth.api.pojo.bo.LoginUserBO;
+import com.royan.auth.api.pojo.vo.LoginUserVO;
 import com.royan.auth.api.service.fallback.AuthFeignFallback;
 import com.royan.framework.api.entity.ResponseData;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,13 +26,19 @@ public interface AuthRemoteService {
 	/**
 	 * 登录
 	 */
-	@PostMapping("/user/doLogin")
-	ResponseData<LoginUser> doLogin(@RequestBody LoginUser loginUser);
+	@RequestMapping(value = "/user/doLogin", method = RequestMethod.POST)
+	ResponseData<LoginUserVO> doLogin(@RequestBody LoginUserBO loginUserBO);
 	
 	/**
 	 * 退出
 	 */
-	@PostMapping("/user/logout")
+	@RequestMapping(value = "/user/logout", method = RequestMethod.POST)
 	ResponseData<String> logout();
-
+	
+	
+	/**
+	 * 获取用户信息
+	 */
+	@RequestMapping(value ="/user/getUserInfo", method = RequestMethod.POST)
+	ResponseData<LoginUserVO> getUserInfo();
 }

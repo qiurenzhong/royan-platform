@@ -11,6 +11,7 @@ spring:
   main:
     #允许覆盖相同的bean
     allow-bean-definition-overriding: true
+    allow-circular-references: true
     web-application-type: reactive
   cloud:
     nacos:

@@ -17,10 +17,6 @@
             <groupId>com.royan.framework</groupId>
             <artifactId>framework-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.royan.framework</groupId>
-            <artifactId>framework-auth</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>

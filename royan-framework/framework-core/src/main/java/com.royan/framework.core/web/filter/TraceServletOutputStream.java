@@ -17,6 +17,7 @@ public class TraceServletOutputStream extends ServletOutputStream {
         this.buffer = new StringBuilder();
     }
 
+    @Override
     public void write(int b) throws IOException {
         this.outputStream.write(b);
     }
@@ -39,10 +40,12 @@ public class TraceServletOutputStream extends ServletOutputStream {
 
     }
 
+    @Override
     public boolean isReady() {
         return false;
     }
 
+    @Override
     public void setWriteListener(WriteListener writeListener) {
     }
 

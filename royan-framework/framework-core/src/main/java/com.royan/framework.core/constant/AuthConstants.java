@@ -1,82 +1,58 @@
 package com.royan.framework.core.constant;
 
-public interface AuthConstants {
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * 权限相关通用常量
+ *
+ * @author tianma
+ */
+public class AuthConstants {
 
 
     /**
      * 认证请求头key
      */
-    String AUTHORIZATION_KEY = "Authorization";
-
-    /**
-     * JWT令牌前缀
-     */
-    String AUTHORIZATION_PREFIX = "bearer ";
-
-
+    public static final String  AUTHORIZATION_KEY = "token";
     /**
      * Basic认证前缀
      */
-    String BASIC_PREFIX = "Basic ";
-
-    /**
-     * JWT载体key
-     */
-    String JWT_PAYLOAD_KEY = "payload";
-
-    /**
-     * JWT ID 唯一标识
-     */
-    String JWT_JTI = "jti";
-
-    /**
-     * JWT ID 唯一标识
-     */
-    String JWT_EXP = "exp";
+    public static final String  BASIC_PREFIX = "Basic ";
 
     /**
      * Redis缓存权限规则key
      */
-    String PERMISSION_ROLES_KEY = "auth:permission:roles";
+    public static final String  PERMISSION_ROLES_KEY = "auth:permission:roles";
 
     /**
      * 黑名单token前缀
      */
-    String TOKEN_BLACKLIST_PREFIX = "auth:token:blacklist:";
-
+    public static final String  TOKEN_BLACKLIST_PREFIX = "auth:token:blacklist:";
+	
+	public static final String  GRANT_TYPE_KEY = "grant_type";
+	
+	public static final String  REFRESH_TOKEN = "refresh_token";
+	
+	public static final String  APPLICATION_JSON_UTF8_VALUE = "application/json;charset=UTF-8";
+	
+	public static final List<String> BLACK_LIST = Arrays.asList("/auth/user/doLogin");
 
     /**
      * 密码加密方式
      */
-    String BCRYPT = "{bcrypt}";
+    public static final String  BCRYPT = "{bcrypt}";
 
     /**
      * 用户信息
      */
-    String USER_INFO = "user";
-
-    /**
-     * JWT存储权限前缀
-     */
-    String AUTHORITY_PREFIX_KEY = "ROLE_";
-
-
-    /**
-     * JWT存储权限属性
-     */
-    String JWT_AUTHORITIES_KEY = "authorities";
-    /**
-     * 后台管理接口路径匹配
-     */
-    String AUTH_URL_PATTERN = "**/auth/**";
-
-
-    String LOGOUT_PATH = "/api/auth/oauth/logout";
-
-
-    String GRANT_TYPE_KEY = "grant_type";
-
-    String REFRESH_TOKEN = "refresh_token";
-
-    String APPLICATION_JSON_UTF8_VALUE = "application/json;charset=UTF-8";
+    public static final String  USER_INFO = "login_user";
+	/**
+	 * 用户ID字段
+	 */
+	public static final String DETAILS_USER_ID = "user_id";
+	/**
+	 * 用户名字段
+	 */
+	public static final String DETAILS_USERNAME = "user_name";
 }

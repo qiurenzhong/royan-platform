@@ -1,6 +1,7 @@
 package com.royan.admin.provider.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -92,5 +93,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		SysUser sysUser = new SysUser();
 		BeanCopierUtils.copy(sysUserBO.getVo(), sysUser);
 		return getBaseMapper().deleteById(sysUser);
+	}
+	
+	@Override
+	public SysUserVO getUserByUserId(String loginId) {
+		SysUser sysUser = this.getById(Convert.toLong(loginId));
+		return BeanCopierUtils.copy(sysUser,SysUserVO.class);
 	}
 }

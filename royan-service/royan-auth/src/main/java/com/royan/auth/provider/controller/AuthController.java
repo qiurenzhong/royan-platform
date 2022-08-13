@@ -2,14 +2,17 @@ package com.royan.auth.provider.controller;
 
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.oauth2.logic.SaOAuth2Handle;
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
-import com.royan.admin.api.pojo.vo.SysUserVO;
-import com.royan.admin.api.service.dubbo.SysUserRpcService;
-import com.royan.auth.api.pojo.LoginUser;
+import com.royan.auth.api.pojo.bo.LoginUserBO;
+import com.royan.auth.api.pojo.vo.LoginUserVO;
 import com.royan.auth.api.service.AuthRemoteService;
+import com.royan.auth.provider.service.SysLoginUserService;
 import com.royan.framework.api.entity.ResponseData;
+import com.royan.framework.api.model.LoginUser;
+import com.royan.framework.core.constant.AuthConstants;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController implements AuthRemoteService {
 	
-	@DubboReference(check = false)
-	private SysUserRpcService sysUserRpcService;
+	@Autowired
+	private SysLoginUserService sysLoginUserService;
 	
 	@Override
 	public Object oauth2() {
@@ -33,22 +36,24 @@ public class AuthController implements AuthRemoteService {
 	}
 	
 	@Override
-	public ResponseData<LoginUser> doLogin(@RequestBody LoginUser loginUser) {
-		String username = loginUser.getUsername();
-		SysUserVO sysUserVO = sysUserRpcService.getUserByUsername(username);
-		if (sysUserVO != null) {
-			StpUtil.login(sysUserVO.getId());
-			loginUser.setUsername(sysUserVO.getUserName());
-			loginUser.setPassword(sysUserVO.getPassword());
-			loginUser.setObj(StpUtil.getTokenInfo());
-			return ResponseData.success(loginUser);
-		}
-		return ResponseData.failed("登录失败！");
+	public ResponseData<LoginUserVO> doLogin(@RequestBody LoginUserBO loginUserBO) {
+		return ResponseData.success(sysLoginUserService.login(loginUserBO));
 	}
 	
 	@Override
 	public ResponseData<String> logout() {
 		StpUtil.logout();
 		return ResponseData.success("退出登录成功！");
+	}
+	
+	@Override
+	public ResponseData<LoginUserVO> getUserInfo() {
+		SaSession session = StpUtil.getSession();
+		LoginUser loginUser = (LoginUser) session.get(AuthConstants.USER_INFO);
+		LoginUserVO loginUserVO = new LoginUserVO();
+		loginUserVO.setUserId(loginUser.getUserId());
+		loginUserVO.setUserName(loginUser.getUsername());
+		loginUserVO.setToken(StpUtil.getTokenValue());
+		return ResponseData.success(loginUserVO);
 	}
 }
