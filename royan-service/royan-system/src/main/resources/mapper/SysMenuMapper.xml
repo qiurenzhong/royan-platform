@@ -46,4 +46,19 @@
           and m.status = 0
         order by m.parent_id, m.order_num
     </select>
+
+    <!--查询菜单权限-->
+    <select id="selectMenuPermsByUserId" parameterType="Long" resultType="String">
+        SELECT DISTINCT
+            m.perms
+        FROM
+            sys_menu m
+                LEFT JOIN sys_role_menu rm ON m.id = rm.menu_id
+                LEFT JOIN sys_user_role ur ON rm.role_id = ur.role_id
+                LEFT JOIN sys_role r ON r.id = ur.role_id
+        WHERE
+            m.STATUS = '0'
+          AND r.STATUS = '0'
+          AND ur.user_id = #{userId}
+    </select>
 </mapper>

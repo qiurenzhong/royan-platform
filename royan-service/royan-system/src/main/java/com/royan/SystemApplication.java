@@ -12,9 +12,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication
-public class AdminApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(AdminApplication.class, args);
-    }
+public class SystemApplication {
+	
+	public static void main(String[] args) {
+		SpringApplication.run(SystemApplication.class, args);
+	}
 }

@@ -1,11 +1,11 @@
 package com.royan.system.api.service.feign.fallback;
 
-import com.royan.system.api.pojo.bo.SysMenuBO;
-import com.royan.system.api.pojo.vo.SysMenuVO;
-import com.royan.system.api.service.feign.SysMenuRemoteService;
 import com.royan.framework.api.entity.ResponseCode;
 import com.royan.framework.api.entity.ResponseData;
 import com.royan.framework.api.model.Pagination;
+import com.royan.system.api.pojo.bo.SysMenuBO;
+import com.royan.system.api.pojo.vo.SysMenuVO;
+import com.royan.system.api.service.feign.SysMenuRemoteService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,16 +24,6 @@ public abstract class SysMenuFeignFallback implements SysMenuRemoteService {
 
     @Setter
     Throwable cause;
-
-    @Override
-    public ResponseData<SysMenuVO> get(SysMenuBO sysMenuBO) {
-        return ResponseData.failed(ResponseCode.SYSTEM_FUNCTION_DEGRADATION);
-    }
-
-    @Override
-    public ResponseData<List<SysMenuVO>> list(SysMenuBO sysMenuBO) {
-	    return ResponseData.failed(ResponseCode.SYSTEM_FUNCTION_DEGRADATION);
-    }
 
     @Override
     public ResponseData<Integer> save(SysMenuBO sysMenuBO) {

@@ -1,6 +1,7 @@
 package com.royan.framework.auth.interceptor;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.royan.framework.api.model.LoginUser;
 import com.royan.framework.auth.context.UserContextHolder;
@@ -30,11 +31,13 @@ public class HeaderInterceptor implements AsyncHandlerInterceptor {
 		}
 		// 设置登录用户信息
 		String loginUserJson = Convert.toStr(ServletUtils.getHeader(request, AuthConstants.USER_INFO));
-		LoginUser loginUser = JSONUtil.toBean(loginUserJson,LoginUser.class);
-		loginUser.setUserId(Convert.toLong(ServletUtils.getHeader(request, AuthConstants.DETAILS_USER_ID)));
-		loginUser.setUsername(Convert.toStr(ServletUtils.getHeader(request, AuthConstants.DETAILS_USERNAME)));
-		loginUser.setToken(Convert.toStr(ServletUtils.getHeader(request, AuthConstants.AUTHORIZATION_KEY)));
-		UserContextHolder.setLoginUser(loginUser);
+		if (StrUtil.isNotBlank(loginUserJson)) {
+			LoginUser loginUser = JSONUtil.toBean(loginUserJson,LoginUser.class);
+			loginUser.setUserId(Convert.toLong(ServletUtils.getHeader(request, AuthConstants.DETAILS_USER_ID)));
+			loginUser.setUsername(Convert.toStr(ServletUtils.getHeader(request, AuthConstants.DETAILS_USERNAME)));
+			loginUser.setToken(Convert.toStr(ServletUtils.getHeader(request, AuthConstants.AUTHORIZATION_KEY)));
+			UserContextHolder.setLoginUser(loginUser);
+		}
 		return true;
 	}
 	

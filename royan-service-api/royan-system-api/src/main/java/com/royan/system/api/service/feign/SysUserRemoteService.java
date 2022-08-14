@@ -1,15 +1,17 @@
 package com.royan.system.api.service.feign;
 
+import com.royan.framework.api.entity.ResponseData;
+import com.royan.framework.api.model.Pagination;
 import com.royan.system.api.ServerInterface;
 import com.royan.system.api.pojo.bo.SysUserBO;
 import com.royan.system.api.pojo.vo.SysUserVO;
 import com.royan.system.api.service.feign.fallback.SysUserFeignFallback;
-import com.royan.framework.api.entity.ResponseData;
-import com.royan.framework.api.model.Pagination;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 /**
  * @author Qiurz
@@ -53,6 +55,24 @@ public interface SysUserRemoteService {
      */
     @RequestMapping(value = "/sysUser/update", method = RequestMethod.POST)
     ResponseData<Integer> update(@RequestBody SysUserBO userBO);
+	
+	/**
+	 * 获取单个用户
+	 *
+	 * @param userBO
+	 * @return
+	 */
+	@RequestMapping(value = "/sysUser/get", method = RequestMethod.POST)
+	ResponseData<SysUserVO> get(@RequestBody SysUserBO userBO);
+	
+	/**
+	 * 批量获取用户（最大500条）
+	 *
+	 * @param userBO
+	 * @return
+	 */
+	@RequestMapping(value = "/sysUser/batchGet", method = RequestMethod.POST)
+	ResponseData<List<SysUserVO>> batchGet(@RequestBody SysUserBO userBO);
 
 
     /**

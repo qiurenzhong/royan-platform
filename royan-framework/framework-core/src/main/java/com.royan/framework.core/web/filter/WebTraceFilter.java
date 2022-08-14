@@ -1,9 +1,7 @@
 package com.royan.framework.core.web.filter;
 
+import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.MDC;
@@ -55,8 +53,9 @@ public class WebTraceFilter extends GenericFilterBean {
 		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
 			HttpServletRequest request = (HttpServletRequest) servletRequest;
 			HttpServletResponse response = (HttpServletResponse) servletResponse;
-			long startTime = System.currentTimeMillis();
 			
+			StopWatch stopWatch = new StopWatch();
+			stopWatch.start();
 			try {
 				// logback-spring.xml文件的参数填充
 				this.mdc(request);
@@ -70,10 +69,9 @@ public class WebTraceFilter extends GenericFilterBean {
 				TraceServletResponseWrapper responseWrapper = new TraceServletResponseWrapper(response);
 				filterChain.doFilter(requestWrapper, responseWrapper);
 				
-				Long endTime = System.currentTimeMillis();
+				stopWatch.stop();
 				String requestBody = this.traceRequestParam(requestWrapper, tracerFlag);
 				String responseBody = this.traceResponseParam(responseWrapper, tracerFlag);
-				StringBuilder bodyText = new StringBuilder();
 				if (StrUtil.isEmpty(requestBody)) {
 					requestBody = "{}";
 				}
@@ -81,17 +79,9 @@ public class WebTraceFilter extends GenericFilterBean {
 				if (StrUtil.isEmpty(responseBody)) {
 					responseBody = "{}";
 				}
-				
-				bodyText.append("{\"requestBody\":" + requestBody + ",");
-				bodyText.append("\"responseBody\":" + responseBody + ",");
-				bodyText.append("\"costTime\":" + "\"" + (endTime - startTime) + "ms\"}");
-				
-				if (log.isDebugEnabled()) {
-					JSONObject object = JSONObject.parseObject(bodyText.toString());
-					String jsonFormat = JSON.toJSONString(object, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue,
-							SerializerFeature.WriteDateUseDateFormat);
-					log.debug("app params info: \n" + jsonFormat);
-				}
+				log.info("请求参数==> " + requestBody);
+				log.info("响应参数==> " + responseBody);
+				log.info("接口耗时==> " + stopWatch.getLastTaskTimeMillis() + "ms");
 			} catch (Exception ex) {
 				log.error("tracer request/response param error!", ex);
 			}

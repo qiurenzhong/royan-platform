@@ -27,17 +27,13 @@ public class SysRoleController implements SysRoleRemoteService {
 	private SysRoleRpcService sysRoleService;
 	
 	@Override
-	public ResponseData<SysRoleVO> get(@RequestBody SysRoleBO sysRoleBO) {
-		ResponseData<SysRoleVO> resp = new ResponseData<>();
-		resp.setData(null).ok();
-		return resp;
+	public ResponseData<SysRoleVO> get(SysRoleBO sysRoleBO) {
+		return null;
 	}
 	
 	@Override
-	public ResponseData<List<SysRoleVO>> list(@RequestBody SysRoleBO sysRoleBO) {
-		ResponseData<List<SysRoleVO>> resp = new ResponseData<>();
-		resp.setData(null).ok();
-		return resp;
+	public ResponseData<List<SysRoleVO>> batchGet(SysRoleBO sysRoleBO) {
+		return null;
 	}
 	
 	@Override

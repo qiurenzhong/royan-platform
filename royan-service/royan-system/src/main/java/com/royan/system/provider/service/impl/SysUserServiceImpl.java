@@ -1,6 +1,7 @@
 package com.royan.system.provider.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
@@ -9,18 +10,20 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.royan.framework.api.model.OrderByClause;
+import com.royan.framework.api.model.Pagination;
+import com.royan.framework.core.utils.BeanCopierUtils;
+import com.royan.framework.redis.annotation.RedissonLock;
 import com.royan.system.api.pojo.bo.SysUserBO;
 import com.royan.system.api.pojo.vo.SysUserVO;
 import com.royan.system.api.service.dubbo.SysUserRpcService;
 import com.royan.system.provider.mapper.SysUserMapper;
 import com.royan.system.provider.model.SysUser;
-import com.royan.framework.api.model.OrderByClause;
-import com.royan.framework.api.model.Pagination;
-import com.royan.framework.core.utils.BeanCopierUtils;
-import com.royan.framework.redis.annotation.RedissonLock;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -99,6 +102,22 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 	@Override
 	public SysUserVO getUserByUserId(String loginId) {
 		SysUser sysUser = this.getById(Convert.toLong(loginId));
-		return BeanCopierUtils.copy(sysUser,SysUserVO.class);
+		return BeanCopierUtils.copy(sysUser, SysUserVO.class);
+	}
+	
+	@Override
+	public SysUserVO get(SysUserBO sysUserBO) {
+		SysUser sysUser = this.getById(sysUserBO.getId());
+		return BeanCopierUtils.copy(sysUser, SysUserVO.class);
+	}
+	
+	@Override
+	public List<SysUserVO> batchGet(SysUserBO sysUserBO) {
+		String[] ids = sysUserBO.getIds();
+		List<SysUser> sysUsers = this.getBaseMapper().selectBatchIds(Arrays.asList(ids));
+		if (CollectionUtil.isEmpty(sysUsers)) {
+			return new ArrayList<>();
+		}
+		return BeanCopierUtils.copyArray(sysUsers, SysUserVO.class);
 	}
 }
