@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>royan-service</artifactId>
+        <groupId>com.royan.service</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>royan-system</artifactId>
+    <groupId>com.royan.system.provider</groupId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.royan.system.api</groupId>
+            <artifactId>royan-system-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-core</artifactId>
+        </dependency>
+
+    <!--    <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-search</artifactId>
+        </dependency>-->
+
+        <!--knife4j文档-->
+       <!-- <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-knife4j</artifactId>
+        </dependency>-->
+
+        <!--sentinel限流-->
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-sentinel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.royan.framework</groupId>
+            <artifactId>framework-auth</artifactId>
+        </dependency>
+
+        <!-- 注册中心 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <!-- 配置中心 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!--监控系统健康情况的工具-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

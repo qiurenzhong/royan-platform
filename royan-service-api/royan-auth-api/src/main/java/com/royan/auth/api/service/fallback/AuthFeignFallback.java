@@ -13,16 +13,10 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class AuthFeignFallback implements AuthRemoteService {
-	
+public abstract class AuthFeignFallback implements AuthRemoteService {
 	
 	@Override
 	public ResponseData<LoginUserVO> getUserInfo() {
-		return null;
-	}
-	
-	@Override
-	public Object oauth2() {
 		return null;
 	}
 	

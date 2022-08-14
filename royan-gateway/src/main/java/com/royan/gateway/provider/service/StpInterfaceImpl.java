@@ -1,7 +1,7 @@
 package com.royan.gateway.provider.service;
 
 import cn.dev33.satoken.stp.StpInterface;
-import com.royan.admin.api.service.dubbo.SysRoleRpcService;
+import com.royan.system.api.service.dubbo.SysRoleRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Component;
 

@@ -72,8 +72,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.royan.admin.api</groupId>
-            <artifactId>royan-admin-api</artifactId>
+            <groupId>com.royan.system.api</groupId>
+            <artifactId>royan-system-api</artifactId>
             <version>${fk.version}</version>
         </dependency>
 

@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>royan-admin-api</module>
+        <module>royan-system-api</module>
         <module>royan-auth-api</module>
         <module>royan-file-api</module>
         <module>royan-account-api</module>

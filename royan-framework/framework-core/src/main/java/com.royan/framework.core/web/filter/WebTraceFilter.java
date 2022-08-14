@@ -1,6 +1,9 @@
 package com.royan.framework.core.web.filter;
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.MDC;
@@ -24,154 +27,154 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 public class WebTraceFilter extends GenericFilterBean {
-
-
-    public static final int ContentLength = 40960;
-    private Tracer tracer;
-    private static String serverName = "";
-    private static String serverAddressIp = "";
-
-    public WebTraceFilter(Tracer tracer) {
-        this.tracer = tracer;
-        this.initConfig();
-    }
-
-    private void initConfig() {
-        InetAddress inetAddress = null;
-        try {
-            inetAddress = InetAddress.getLocalHost();
-            serverName = inetAddress.getHostName();
-            serverAddressIp = inetAddress.getHostAddress();
-        }catch (UnknownHostException e) {
-            log.debug("init config..." ,e);
-        }
-    }
-
-
-
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException {
-        if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
-            HttpServletRequest request = (HttpServletRequest) servletRequest;
-            HttpServletResponse response = (HttpServletResponse) servletResponse;
-            long startTime = System.currentTimeMillis();
-
-            try{
-                // logback-spring.xml文件的参数填充
-                this.mdc(request);
-
-                // 打印请求响应参数
-                Boolean tracerFlag = true;
-                if (!FilterUtils.shouldTracer(request, response)) {
-                    tracerFlag = false;
-                }
-                TraceServletRequestWrapper requestWrapper = new TraceServletRequestWrapper(request);
-                TraceServletResponseWrapper responseWrapper = new TraceServletResponseWrapper(response);
-                filterChain.doFilter(requestWrapper,responseWrapper);
-
-                Long endTime = System.currentTimeMillis();
-                String requestBody = this.traceRequestParam(requestWrapper, tracerFlag);
-                String responseBody = this.traceResponseParam(responseWrapper, tracerFlag);
-                StringBuilder builder = new StringBuilder();
-                if (StrUtil.isEmpty(requestBody)) {
-                    requestBody = "{}";
-                }
-
-                if (StrUtil.isEmpty(responseBody)) {
-                    responseBody = "{}";
-                }
-
-                builder.append("{\"requestBody\":" + requestBody + ",");
-                builder.append("\"responseBody\":" + responseBody + ",");
-                builder.append("\"costTime\":" + "\"" +(endTime - startTime) + "ms\"}");
-
-                if (log.isDebugEnabled()){
-                    log.debug("app params info: \n" + builder);
-                }
-            }catch (Exception ex) {
-                log.error("tracer request/response param error!", ex);
-            }
-
-        }else {
-            throw new ServletException("Filter just supports HTTP requests");
-        }
-    }
-
-    private void mdc(HttpServletRequest request) {
-        String traceId = this.getHeader(request, "X-B3-TraceId");
-        String userId = this.getHeader(request, "X-user-id");
-        MDC.put("traceId", traceId);
-        MDC.put("remoteIP", this.getHeader(request, "X-Real-IP"));
-        MDC.put("requestURL", this.getHeader(request, "X-Span-Name"));
-        MDC.put("sessionId", this.getHeader(request, "X-session-id"));
-        MDC.put("userId", userId);
-        MDC.put("serverName", serverName);
-        MDC.put("serverIp", serverAddressIp);
-        String spanId = this.getHeader(request, "X-Span-Id");
-        if (StrUtil.isEmpty(spanId)) {
-            spanId = traceId;
-        } else {
-            MDC.put("spanPid", spanId);
-            spanId = spanId + "_01";
-        }
-        MDC.put("spanId", spanId);
-    }
-
-    private String getHeader(HttpServletRequest request, String key) {
-        return StrUtil.isEmpty(request.getHeader(key))?"":request.getHeader(key);
-    }
-
-    private String traceResponseParam(TraceServletResponseWrapper responseWrapper, Boolean tracerFlag) {
-        TraceServletOutputStream traceOutputStream = responseWrapper.getTraceServletOutputStream();
-        if (null != traceOutputStream && StrUtil.isNotEmpty(traceOutputStream.getContent())) {
-            String response = new String(traceOutputStream.getContent().getBytes(), StandardCharsets.UTF_8);
-            if (tracerFlag) {
-                Span currentSpan = this.tracer.currentSpan();
-                Span newSpan;
-                if (currentSpan == null) {
-                    newSpan = tracer.nextSpan();
-                }else {
-                    newSpan = currentSpan;
-                }
-                newSpan.tag("response.body", response);
-            }
-
-            return response;
-        } else {
-            return null;
-        }
-    }
-
-    private String traceRequestParam(TraceServletRequestWrapper requestWrapper, Boolean tracerFlag) {
-        String body = "";
-        String method = requestWrapper.getMethod();
-        if (method.equalsIgnoreCase("GET")) {
-            body = requestWrapper.getQueryString();
-             if (StrUtil.isNotEmpty(body) && Base64.isBase64(body)) {
-                body = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
-            }
-        } else {
-            int size = requestWrapper.getContentLength();
-            if (size < ContentLength) {
-                TraceServletInputStream traceInputStream = requestWrapper.getTraceServletInputStream();
-                if (traceInputStream != null) {
-                    body = new String(traceInputStream.getContent().getBytes(), StandardCharsets.UTF_8);
-                }
-            }
-        }
-
-        if (StrUtil.isNotEmpty(body) && tracerFlag) {
-            Span currentSpan = this.tracer.currentSpan();
-            Span newSpan;
-            if (currentSpan == null) {
-                newSpan = tracer.nextSpan();
-            }else {
-                newSpan = currentSpan;
-            }
-            newSpan.tag("request.body", body);
-        }
-
-        return body;
-    }
+	
+	
+	public static final int ContentLength = 40960;
+	private Tracer tracer;
+	private static String serverName = "";
+	private static String serverAddressIp = "";
+	
+	public WebTraceFilter(Tracer tracer) {
+		this.tracer = tracer;
+		this.initConfig();
+	}
+	
+	private void initConfig() {
+		InetAddress inetAddress = null;
+		try {
+			inetAddress = InetAddress.getLocalHost();
+			serverName = inetAddress.getHostName();
+			serverAddressIp = inetAddress.getHostAddress();
+		} catch (UnknownHostException e) {
+			log.debug("init config...", e);
+		}
+	}
+	
+	@Override
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException {
+		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
+			HttpServletRequest request = (HttpServletRequest) servletRequest;
+			HttpServletResponse response = (HttpServletResponse) servletResponse;
+			long startTime = System.currentTimeMillis();
+			
+			try {
+				// logback-spring.xml文件的参数填充
+				this.mdc(request);
+				
+				// 打印请求响应参数
+				Boolean tracerFlag = true;
+				if (!FilterUtils.shouldTracer(request, response)) {
+					tracerFlag = false;
+				}
+				TraceServletRequestWrapper requestWrapper = new TraceServletRequestWrapper(request);
+				TraceServletResponseWrapper responseWrapper = new TraceServletResponseWrapper(response);
+				filterChain.doFilter(requestWrapper, responseWrapper);
+				
+				Long endTime = System.currentTimeMillis();
+				String requestBody = this.traceRequestParam(requestWrapper, tracerFlag);
+				String responseBody = this.traceResponseParam(responseWrapper, tracerFlag);
+				StringBuilder bodyText = new StringBuilder();
+				if (StrUtil.isEmpty(requestBody)) {
+					requestBody = "{}";
+				}
+				
+				if (StrUtil.isEmpty(responseBody)) {
+					responseBody = "{}";
+				}
+				
+				bodyText.append("{\"requestBody\":" + requestBody + ",");
+				bodyText.append("\"responseBody\":" + responseBody + ",");
+				bodyText.append("\"costTime\":" + "\"" + (endTime - startTime) + "ms\"}");
+				
+				if (log.isDebugEnabled()) {
+					JSONObject object = JSONObject.parseObject(bodyText.toString());
+					String jsonFormat = JSON.toJSONString(object, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue,
+							SerializerFeature.WriteDateUseDateFormat);
+					log.debug("app params info: \n" + jsonFormat);
+				}
+			} catch (Exception ex) {
+				log.error("tracer request/response param error!", ex);
+			}
+			
+		} else {
+			throw new ServletException("Filter just supports HTTP requests");
+		}
+	}
+	
+	private void mdc(HttpServletRequest request) {
+		String traceId = this.getHeader(request, "X-B3-TraceId");
+		String userId = this.getHeader(request, "X-user-id");
+		MDC.put("traceId", traceId);
+		MDC.put("remoteIP", this.getHeader(request, "X-Real-IP"));
+		MDC.put("requestURL", this.getHeader(request, "X-Span-Name"));
+		MDC.put("sessionId", this.getHeader(request, "X-session-id"));
+		MDC.put("userId", userId);
+		MDC.put("serverName", serverName);
+		MDC.put("serverIp", serverAddressIp);
+		String spanId = this.getHeader(request, "X-Span-Id");
+		if (StrUtil.isEmpty(spanId)) {
+			spanId = traceId;
+		} else {
+			MDC.put("spanPid", spanId);
+			spanId = spanId + "_01";
+		}
+		MDC.put("spanId", spanId);
+	}
+	
+	private String getHeader(HttpServletRequest request, String key) {
+		return StrUtil.isEmpty(request.getHeader(key)) ? "" : request.getHeader(key);
+	}
+	
+	private String traceResponseParam(TraceServletResponseWrapper responseWrapper, Boolean tracerFlag) {
+		TraceServletOutputStream traceOutputStream = responseWrapper.getTraceServletOutputStream();
+		if (null != traceOutputStream && StrUtil.isNotEmpty(traceOutputStream.getContent())) {
+			String response = new String(traceOutputStream.getContent().getBytes(), StandardCharsets.UTF_8);
+			if (tracerFlag) {
+				Span currentSpan = this.tracer.currentSpan();
+				Span newSpan;
+				if (currentSpan == null) {
+					newSpan = tracer.nextSpan();
+				} else {
+					newSpan = currentSpan;
+				}
+				newSpan.tag("response.body", response);
+			}
+			
+			return response;
+		} else {
+			return null;
+		}
+	}
+	
+	private String traceRequestParam(TraceServletRequestWrapper requestWrapper, Boolean tracerFlag) {
+		String body = "";
+		String method = requestWrapper.getMethod();
+		if (method.equalsIgnoreCase("GET")) {
+			body = requestWrapper.getQueryString();
+			if (StrUtil.isNotEmpty(body) && Base64.isBase64(body)) {
+				body = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
+			}
+		} else {
+			int size = requestWrapper.getContentLength();
+			if (size < ContentLength) {
+				TraceServletInputStream traceInputStream = requestWrapper.getTraceServletInputStream();
+				if (traceInputStream != null) {
+					body = new String(traceInputStream.getContent().getBytes(), StandardCharsets.UTF_8);
+				}
+			}
+		}
+		
+		if (StrUtil.isNotEmpty(body) && tracerFlag) {
+			Span currentSpan = this.tracer.currentSpan();
+			Span newSpan;
+			if (currentSpan == null) {
+				newSpan = tracer.nextSpan();
+			} else {
+				newSpan = currentSpan;
+			}
+			newSpan.tag("request.body", body);
+		}
+		
+		return body;
+	}
 }

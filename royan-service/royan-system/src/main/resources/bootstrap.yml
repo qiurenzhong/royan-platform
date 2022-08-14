@@ -1,9 +1,9 @@
 server:
-  port: 21402
+  port: 21406 #端口号
 
 spring:
   application:
-    name: royan-auth
+    name: royan-system
   profiles:
     active: dev
   main:

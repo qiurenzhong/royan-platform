@@ -1,8 +1,9 @@
 package com.royan.auth.provider.service;
 
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
-import com.royan.admin.api.pojo.vo.SysUserVO;
-import com.royan.admin.api.service.dubbo.SysUserRpcService;
+import com.royan.system.api.pojo.vo.SysUserVO;
+import com.royan.system.api.service.dubbo.SysUserRpcService;
 import com.royan.auth.api.pojo.bo.LoginUserBO;
 import com.royan.auth.api.pojo.vo.LoginUserVO;
 import com.royan.auth.provider.utils.BcryptUtils;
@@ -53,5 +54,15 @@ public class SysLoginUserService {
 			return loginUserVO;
 		}
 		return new LoginUserVO();
+	}
+	
+	public LoginUserVO getLoginUserInfo() {
+		SaSession session = StpUtil.getSession();
+		LoginUser loginUser = (LoginUser) session.get(AuthConstants.USER_INFO);
+		LoginUserVO loginUserVO = new LoginUserVO();
+		loginUserVO.setUserId(loginUser.getUserId());
+		loginUserVO.setUserName(loginUser.getUsername());
+		loginUserVO.setToken(StpUtil.getTokenValue());
+		return loginUserVO;
 	}
 }

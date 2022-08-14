@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>royan-admin-api</artifactId>
-    <groupId>com.royan.admin.api</groupId>
+    <artifactId>royan-system-api</artifactId>
+    <groupId>com.royan.system.api</groupId>
 
     <dependencies>
         <dependency>
